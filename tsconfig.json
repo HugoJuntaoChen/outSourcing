@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es2015",
+    "jsx": "react-jsx",
+    "strict": true,
+    "module": "esnext",
+    "importHelpers": true,
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["esnext", "dom"],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "types/*.d.ts",
+    "test.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
