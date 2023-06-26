@@ -1,19 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { resolve, join } = require('path')
+const { resolve } = require('path')
 
 module.exports = {
-  mode: 'production',
-  entry: resolve(__dirname, 'src/index.ts'),
-  output: {
-    filename: 'index.js',
-    clean: true
-  },
-  devServer: {
-    port: 8888,
-    static: {
-      directory: join(__dirname, 'public')
-    }
-  },
+  entry: resolve(__dirname, '../src/index.ts'),
   module: {
     rules: [
       {
@@ -37,7 +26,7 @@ module.exports = {
         use: {
           loader: 'ts-loader',
           options: {
-            configFile: resolve(__dirname, './tsconfig.json')
+            configFile: resolve(__dirname, '../tsconfig.json')
           }
         }
       }
@@ -46,19 +35,10 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
-      '@': resolve(__dirname, './src')
+      '@': resolve(__dirname, '../src')
     }
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'react-ts',
-      template: './public/index.html'
-    })
-  ],
-  optimization: {
-    splitChunks: {
-      // chunks: 'all'
-      minSize: 1000 * 1024
-    }
-  }
+    new HtmlWebpackPlugin()
+  ]
 }
