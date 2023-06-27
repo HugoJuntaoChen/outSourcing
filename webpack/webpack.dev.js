@@ -10,7 +10,7 @@ const webpackDevConfig = {
     static: {
       directory: resolve(__dirname, '../public')
     },
-    open: 'https://test.com'
+    open: true
   }
 }
 
