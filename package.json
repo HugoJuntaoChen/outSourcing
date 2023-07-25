@@ -7,7 +7,7 @@
     "commit": "git add -A && git-cz",
     "prepare": "husky install",
     "lint-staged": "lint-staged -c ./.husky/lint-staged.config.js",
-    "start": "w2 add && webpack serve --config webpack/webpack.dev.js",
+    "start": "webpack serve --config webpack/webpack.dev.js",
     "build": "webpack --config webpack/webpack.prod.js"
   },
   "dependencies": {
