@@ -1,6 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { resolve } = require('path')
 
+const cssLoaderAry = [
+  'style-loader',
+  'css-loader'
+]
+
 module.exports = {
   entry: resolve(__dirname, '../src/index.ts'),
   module: {
@@ -29,11 +34,30 @@ module.exports = {
             configFile: resolve(__dirname, '../tsconfig.json')
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: cssLoaderAry
+      },
+      {
+        test: /\.less$/,
+        use: [
+          ...cssLoaderAry,
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                exclude: /node_modules/,
+                javascriptEnabled: true
+              }
+            }
+          }
+        ]
       }
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.css', '.less'],
     alias: {
       '@': resolve(__dirname, '../src')
     }
