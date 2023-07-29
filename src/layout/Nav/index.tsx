@@ -1,18 +1,24 @@
 import React from 'react'
-import { navList } from './config'
 import { Menu } from 'antd'
 import './index.less'
 import { AppstoreOutlined } from '@ant-design/icons'
+import { navRoutes } from '@/router'
+import { useNavigate } from 'react-router'
+
 const Nav = () => {
+  const history = useNavigate()
   return (
     <div>
       <Menu
         className="root-nav"
-        items={navList?.map((i) => ({
+        items={navRoutes?.map((i) => ({
           ...i,
           key: i.path,
           icon: <AppstoreOutlined />
         }))}
+        onClick={(opt) => {
+          history(opt.key)
+        }}
       />
     </div>
   )
