@@ -6,8 +6,8 @@ interface ContentProps {
 }
 const Content = ({ children }: ContentProps) => {
   return (
-    <div className="root-content">
-      <div className="root-detail">{children}</div>
+    <div className="root-content-warpper">
+      <div className="root-detail-warpper">{children}</div>
     </div>
   )
 }
