@@ -10,7 +10,12 @@ const webpackDevConfig = {
     static: {
       directory: resolve(__dirname, '../public')
     },
-    open: true
+    open: true,
+    historyApiFallback: true
+  },
+  output: {
+    publicPath: '/',
+    path: resolve(__dirname, '../public')
   }
 }
 
