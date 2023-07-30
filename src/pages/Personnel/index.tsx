@@ -1,14 +1,34 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { IFormTable } from '@/components'
 import { columns } from './config'
 import { data } from '@/mock'
+import IFormTableOperation from '@/components/IFormTableOperation'
+import { EComponentType } from '@/enums/componentType'
+
 const Personnel: React.FC = () => {
+  const viewFn = () => {
+
+  }
+  const editFn = () => {
+
+  }
+  const deleteFn = () => {
+
+  }
+
+  const tableColumns = useMemo(() => columns.concat([{
+    title: '操作',
+    width: 180,
+    dataIndex: 'operation',
+    render: (_: any, __: any, index: number) => IFormTableOperation({ index, viewFn, deleteFn, editFn })
+  }]), [])
+
   return (
     <IFormTable
       form={{
         forms: [
           {
-            type: 'select',
+            type: EComponentType.SELECT,
             key: '1',
             props: {
               placeholder: '请选择公司',
@@ -16,7 +36,7 @@ const Personnel: React.FC = () => {
             }
           },
           {
-            type: 'select',
+            type: EComponentType.SELECT,
             key: '2',
             props: {
               placeholder: '请选择角色',
@@ -24,7 +44,7 @@ const Personnel: React.FC = () => {
             }
           },
           {
-            type: 'select',
+            type: EComponentType.SELECT,
             key: '3',
             props: {
               placeholder: '请选择级别',
@@ -32,7 +52,7 @@ const Personnel: React.FC = () => {
             }
           },
           {
-            type: 'input',
+            type: EComponentType.INPUT,
             key: '4',
             props: {
               placeholder: '请输入姓名',
@@ -43,7 +63,7 @@ const Personnel: React.FC = () => {
         search: true
       }}
       table={{
-        columns,
+        columns: tableColumns,
         dataSource: data
       }}
     />
