@@ -1,0 +1,37 @@
+.root-warpper {
+  height: 100%;
+  width: 100%;
+  color: #334155;
+  font-family: PingFang SC;
+  font-style: normal;
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 2px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: gainsboro;
+    -webkit-transition: all 1s;
+    transition: all 1s;
+  }
+
+  .ant-btn-primary {
+    background-color: var(--ant-primary-color);
+  }
+
+  .ant-btn-primary,
+  .ant-input:hover,
+  .ant-input:focus,
+  .ant-select-selector:focus,
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+  .ant-select:not(.ant-select-disabled) .ant-select-selector:focus,
+  .ant-select:not(.ant-select-disabled) .ant-select-selector:focus-within {
+    border-color: var(--ant-primary-color);
+  }
+}
