@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react'
-import { Form, Input, Select, Button } from 'antd'
+import React, { forwardRef } from 'react'
+import { Form, Input, Select, Button, type FormInstance } from 'antd'
 import './index.less'
 import type { IFormItemProps, IFormProps } from '../type'
+import { EComponentType } from '@/enums/componentType'
 
 const IFormItem = ({ type, props }: IFormItemProps) => {
   switch (type) {
-    case 'input':
+    case EComponentType.INPUT:
       return <Input {...props}/>
-    case 'select':
+    case EComponentType.SELECT:
       return <Select options={[{ label: 1, value: 1 }]} {...props} />
     default:
-      break
+      return null
   }
 }
 
-const IForm: React.FC<IFormProps> = ({ forms, formRef, formProps, search }) => {
+const IForm: React.FC<IFormProps> = forwardRef<FormInstance<any>, IFormProps>((props, ref) => {
+  // eslint-disable-next-line react/prop-types
+  const { forms, formProps, search, render } = props
   const [form] = Form.useForm()
-
-  useEffect(() => {
-    formRef?.(form)
-  }, [])
 
   return (
     <Form
       form={form}
+      ref={ref}
       name="basic"
       autoComplete="off"
       layout='inline'
@@ -40,6 +40,7 @@ const IForm: React.FC<IFormProps> = ({ forms, formRef, formProps, search }) => {
           <IFormItem {...config} key={config.key} />
         </Form.Item>
       ))}
+      {render?.()}
       {Boolean(search) && (
         <Form.Item>
           <Button type="primary" htmlType="submit">
@@ -49,6 +50,6 @@ const IForm: React.FC<IFormProps> = ({ forms, formRef, formProps, search }) => {
       )}
     </Form>
   )
-}
+})
 
 export default IForm

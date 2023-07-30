@@ -8,7 +8,6 @@ const ITable: React.FC<ITableProps> = ({ ...props }) => {
     <div className='table-wrapper'>
       <Table
         onRow={(record, index) => {
-          console.log(record, index)
           return {
             className: ((Number(index) % 2) !== 0) ? 'table-item-even' : 'table-item-odd'
           }

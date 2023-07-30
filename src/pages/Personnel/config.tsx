@@ -26,12 +26,12 @@ export const columns: ColumnsType<Record<string, any>> = [
   },
   {
     title: '身份证',
-    dataIndex: '7',
+    dataIndex: '5',
     width: 240
   },
   {
     title: '银行卡',
-    dataIndex: '7',
+    dataIndex: '6',
     width: 180,
     render: (text) => <EncipherText text={text} />
   },

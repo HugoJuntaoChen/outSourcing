@@ -2,13 +2,14 @@ import React from 'react'
 import { IFormTable } from '@/components'
 import { columns } from './config'
 import { data } from '@/mock'
+import { EComponentType } from '@/enums'
 const Project: React.FC = () => {
   return (
     <IFormTable
       form={{
         forms: [
           {
-            type: 'input',
+            type: EComponentType.INPUT,
             key: '1',
             props: {
               placeholder: '请输入创建人搜索',
@@ -16,7 +17,7 @@ const Project: React.FC = () => {
             }
           },
           {
-            type: 'input',
+            type: EComponentType.INPUT,
             key: '2',
             props: {
               placeholder: '请输入项目名称/ID搜索',
@@ -24,7 +25,7 @@ const Project: React.FC = () => {
             }
           },
           {
-            type: 'select',
+            type: EComponentType.SELECT,
             key: '3',
             props: {
               placeholder: '请选择项目状态',
@@ -32,7 +33,7 @@ const Project: React.FC = () => {
             }
           },
           {
-            type: 'select',
+            type: EComponentType.SELECT,
             key: '4',
             props: {
               placeholder: '请选择项目资金预算',
