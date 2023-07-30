@@ -32,6 +32,11 @@ module.exports = {
   rules: {
     '@typescript-eslint/explicit-function-return-type': 0,
     'react/react-in-jsx-scope': 'off',
-    'react/jsx-uses-react': 'off'
+    'react/jsx-uses-react': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    'no-return-await': 'off',
+    '@typescript-eslint/return-await': 'off'
   }
 }
