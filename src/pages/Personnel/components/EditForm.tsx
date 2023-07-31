@@ -1,7 +1,6 @@
 import IForm from '@/components/IForm'
-import { Button, Col, Form, Input, Row, Select, Modal } from 'antd'
-
-const { Item } = Form
+import { EComponentType } from '@/enums'
+import { Form, Modal } from 'antd'
 
 interface IProps {
   isEdit: boolean
@@ -11,7 +10,7 @@ interface IProps {
 }
 
 export default function PersonelEditForm (props: IProps) {
-  const { isEdit, data, onCancel, onOk } = props
+  const { data, onOk } = props
 
   const [form] = Form.useForm()
 
@@ -26,55 +25,12 @@ export default function PersonelEditForm (props: IProps) {
     <Modal visible={true}>
       <IForm
         initialValues={data || {}}
-        render={() => {
-          return (
-            <>
-              <Row>
-                <Col span={12}>
-                  <Item name={'name'} label={'姓名'}>
-                    <Input
-                      placeholder="unavailable choice"
-                      id="error"
-                      disabled={isEdit}
-                    />
-                  </Item>
-                </Col>
-                <Col span={12}>
-                  <Item label={'公司'} name={'company'}>
-                    <Select
-                      options={[
-                        {
-                          label: 'ali',
-                          value: 1
-                        },
-                        {
-                          label: 'tencent',
-                          value: 2
-                        }
-                      ]}
-                      disabled={isEdit}
-                    ></Select>
-                  </Item>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={24} style={{ textAlign: 'right' }}>
-                  <Button
-                    style={{ margin: '0 8px' }}
-                    onClick={() => {
-                      onCancel()
-                    }}
-                  >
-                    取消
-                  </Button>
-                  <Button type="primary" onClick={async () => onFinish()}>
-                    确定
-                  </Button>
-                </Col>
-              </Row>
-            </>
-          )
-        }}
+        tiling={false}
+        onFinish={onFinish}
+        multipleForms={[
+          [{ type: EComponentType.INPUT, label: '姓名', name: 'name', key: 'name' }, { type: EComponentType.INPUT, label: '公司', name: 'company', key: 'company' }],
+          [{ type: EComponentType.INPUT, label: '所属团队', name: 'team', key: 'team' }, { type: EComponentType.INPUT, label: '角色', name: 'role', key: 'role' }]
+        ]}
       ></IForm>
     </Modal>
   )
