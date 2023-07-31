@@ -5,13 +5,16 @@ export interface IFormItemProps {
   label?: string
   type: EComponentType
   props?: Record<string, any>
+  name?: string
 }
-
 export interface IFormProps extends FormProps {
   forms?: IFormItemProps[]
   formProps?: FormProps
   search?: boolean
-  render?: (args?: unknown) => JSX.Element | null
+  // 默认平铺
+  tiling?: boolean
+  // 多种渲染方式
+  multipleForms?: IFormItemProps[][]
 }
 
 export type ITableProps = Record<string, any>

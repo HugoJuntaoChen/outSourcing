@@ -1,16 +1,20 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { IFormTable } from '@/components'
 import { columns } from './config'
 import { data } from '@/mock'
 import IFormTableOperation from '@/components/IFormTableOperation'
 import { EComponentType } from '@/enums/componentType'
+import PersonelEditForm from './components/EditForm'
 
 const Personnel: React.FC = () => {
+  const [formVisible, setFormVisible] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
   const viewFn = () => {
 
   }
   const editFn = () => {
-
+    setFormVisible(true)
+    setIsEdit(true)
   }
   const deleteFn = () => {
 
@@ -24,49 +28,53 @@ const Personnel: React.FC = () => {
   }]), [])
 
   return (
-    <IFormTable
-      form={{
-        forms: [
-          {
-            type: EComponentType.SELECT,
-            key: '1',
-            props: {
-              placeholder: '请选择公司',
-              style: { width: 200 }
+    <>
+      <IFormTable
+        form={{
+          forms: [
+            {
+              type: EComponentType.SELECT,
+              key: '1',
+              props: {
+                placeholder: '请选择公司',
+                style: { width: 200 }
+              }
+            },
+            {
+              type: EComponentType.SELECT,
+              key: '2',
+              props: {
+                placeholder: '请选择角色',
+                style: { width: 200 }
+              }
+            },
+            {
+              type: EComponentType.SELECT,
+              key: '3',
+              props: {
+                placeholder: '请选择级别',
+                style: { width: 200 }
+              }
+            },
+            {
+              type: EComponentType.INPUT,
+              key: '4',
+              props: {
+                placeholder: '请输入姓名',
+                style: { width: 200 }
+              }
             }
-          },
-          {
-            type: EComponentType.SELECT,
-            key: '2',
-            props: {
-              placeholder: '请选择角色',
-              style: { width: 200 }
-            }
-          },
-          {
-            type: EComponentType.SELECT,
-            key: '3',
-            props: {
-              placeholder: '请选择级别',
-              style: { width: 200 }
-            }
-          },
-          {
-            type: EComponentType.INPUT,
-            key: '4',
-            props: {
-              placeholder: '请输入姓名',
-              style: { width: 200 }
-            }
-          }
-        ],
-        search: true
-      }}
-      table={{
-        columns: tableColumns,
-        dataSource: data
-      }}
-    />
+          ],
+          search: true
+        }}
+        table={{
+          columns: tableColumns,
+          dataSource: data
+        }}
+      />
+
+      {formVisible && <PersonelEditForm isEdit={isEdit} data={null} onOk={() => { setFormVisible(false) }} onCancel={() => { setFormVisible(false) }} />}
+    </>
   )
 }
 
