@@ -1,11 +1,13 @@
 import { type EComponentType } from '@/enums/componentType'
-import type { FormProps } from 'antd'
+import type { FormProps, FormRule } from 'antd'
 export interface IFormItemProps {
   key: string
   label?: string
   type: EComponentType
   props?: Record<string, any>
   name?: string
+  placeholder?: string
+  rules?: FormRule[]
 }
 export interface IFormProps extends FormProps {
   forms?: IFormItemProps[]

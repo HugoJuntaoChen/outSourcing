@@ -6,12 +6,12 @@ import { EComponentType } from '@/enums/componentType'
 
 const { Item } = Form
 
-const IFormItem = ({ type, props }: IFormItemProps) => {
-  switch (type) {
+const IFormItem = (props: IFormItemProps) => {
+  switch (props.type) {
     case EComponentType.INPUT:
-      return <Input {...props} />
+      return <Input {...props} className='multiple-form-item'/>
     case EComponentType.SELECT:
-      return <Select options={[{ label: 1, value: 1 }]} {...props} />
+      return <Select className='multiple-form-item' options={[{ label: 1, value: 1 }]} {...props} />
     default:
       return null
   }
@@ -22,13 +22,15 @@ function renderMultiple (arr?: IFormItemProps[][]) {
   const renderObj: JSX.Element[] = []
   arr.forEach(curRowIFormItems => {
     const len = curRowIFormItems.length
-    const span = 24 / len
+    let span = 24 / len
+    // 如果只有传进来只有一个的话，也当作span=12来处理
+    if (span === 24) span = 12
     renderObj.push(
-      <Row>
+      <Row className='multiple-form-row'>
         {curRowIFormItems.map((curItems, index) => {
           return (
             <Col span={span} key={index}>
-              <Item {...curItems}>
+              <Item {...curItems} rules={curItems.rules}>
                 {IFormItem(curItems)}
               </Item>
             </Col>
@@ -40,9 +42,8 @@ function renderMultiple (arr?: IFormItemProps[][]) {
   return renderObj
 }
 
-const IForm: React.FC<IFormProps> = forwardRef<FormInstance<any>, IFormProps>(
+const IForm = forwardRef<FormInstance<any>, IFormProps>(
   (props, ref) => {
-    // eslint-disable-next-line react/prop-types
     const { forms, formProps, search, tiling, multipleForms } = props
     const [form] = Form.useForm()
 
@@ -53,7 +54,7 @@ const IForm: React.FC<IFormProps> = forwardRef<FormInstance<any>, IFormProps>(
         name="basic"
         autoComplete="off"
         layout="inline"
-        className={search ?? false ? 'search-form' : ''}
+        className={search ? 'search-form' : 'multiple-form'}
         {...formProps}
       >
         {tiling
