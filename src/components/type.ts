@@ -1,6 +1,6 @@
 import { type EComponentType } from '@/enums/componentType'
-import type { FormProps, FormRule } from 'antd'
-export interface IFormItemProps {
+import type { FormItemProps, FormProps, FormRule } from 'antd'
+export interface IFormItemProps extends FormItemProps {
   key: string
   label?: string
   type: EComponentType
@@ -8,6 +8,8 @@ export interface IFormItemProps {
   name?: string
   placeholder?: string
   rules?: FormRule[]
+  /** 需要传入容器组件为Form.Item的组件内容 */
+  customRender?: () => JSX.Element
 }
 export interface IFormProps extends FormProps {
   forms?: IFormItemProps[]

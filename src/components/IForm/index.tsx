@@ -7,11 +7,12 @@ import { EComponentType } from '@/enums/componentType'
 const { Item } = Form
 
 const IFormItem = (props: IFormItemProps) => {
+  // 待输入
   switch (props.type) {
     case EComponentType.INPUT:
-      return <Input {...props} className='multiple-form-item'/>
+      return <Input placeholder={props.placeholder} className='multiple-form-item'/>
     case EComponentType.SELECT:
-      return <Select className='multiple-form-item' options={[{ label: 1, value: 1 }]} {...props} />
+      return <Select className='multiple-form-item' placeholder={props.placeholder} />
     default:
       return null
   }
@@ -22,22 +23,28 @@ function renderMultiple (arr?: IFormItemProps[][]) {
   const renderObj: JSX.Element[] = []
   arr.forEach(curRowIFormItems => {
     const len = curRowIFormItems.length
-    let span = 24 / len
-    // 如果只有传进来只有一个的话，也当作span=12来处理
-    if (span === 24) span = 12
-    renderObj.push(
-      <Row className='multiple-form-row'>
-        {curRowIFormItems.map((curItems, index) => {
-          return (
-            <Col span={span} key={index}>
-              <Item {...curItems} rules={curItems.rules}>
-                {IFormItem(curItems)}
-              </Item>
-            </Col>
-          )
-        })}
-      </Row>
-    )
+    if (curRowIFormItems[0].customRender === undefined) {
+      let span = 24 / len
+      // 如果只有传进来只有一个的话，也当作span=12来处理
+      if (span === 24) span = 12
+      renderObj.push(
+        <Row className='multiple-form-row'>
+          {curRowIFormItems.map((curItems, index) => {
+            return (
+              <Col span={span} key={index}>
+                <Item {...curItems} rules={curItems.rules}>
+                  {IFormItem(curItems)}
+                </Item>
+              </Col>
+            )
+          })}
+        </Row>
+      )
+    } else {
+      renderObj.push(
+        curRowIFormItems[0].customRender()
+      )
+    }
   })
   return renderObj
 }
