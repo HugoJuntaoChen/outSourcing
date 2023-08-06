@@ -1,8 +1,11 @@
 import IForm from '@/components/IForm'
 import { EComponentType } from '@/enums'
-import { type FormInstance } from 'antd'
+import { type FormInstance, Form, Select, Input, Row, Col } from 'antd'
 import { useRef } from 'react'
 import IModal from '@/components/IModal'
+import { type IFormProps } from '@/components/type'
+
+const { Item } = Form
 interface IProps {
   isEdit: boolean
   data?: any
@@ -10,7 +13,7 @@ interface IProps {
   onCancel: () => void
 }
 
-const multipleForms = [
+const multipleForms: IFormProps['multipleForms'] = [
   [
     {
       type: EComponentType.INPUT,
@@ -18,7 +21,8 @@ const multipleForms = [
       name: 'name',
       key: 'name',
       placeholder: '请输入名字',
-      rules: [{ require: true, message: '请输入名字' }]
+      rules: [{ required: true, message: '请输入名字' }],
+      validateTrigger: 'onBlur'
     },
     { type: EComponentType.INPUT, label: '公司', name: 'company', key: 'company', placeholder: '请选择公司' }
   ],
@@ -32,6 +36,29 @@ const multipleForms = [
   ],
   [
     { type: EComponentType.INPUT, label: '手机号', name: 'phone', key: 'phone', placeholder: '请输入手机号' }
+  ],
+  [
+    {
+      key: '',
+      type: EComponentType.NONE,
+      customRender: () => {
+        return (
+          <Row className='multiple-form-row'>
+            <Col span={12}>
+              <Item label='银行卡' name='bankName'>
+                <Select options={[]} placeholder='请选择银行' style={{ width: 240 }}>
+                </Select>
+              </Item>
+            </Col>
+            <Col span={12}>
+              <Item name='bankId' dependencies={['bankName']}>
+                <Input placeholder='输入银行卡号'/>
+              </Item>
+            </Col>
+          </Row>
+        )
+      }
+    }
   ],
   [
     { type: EComponentType.INPUT, label: '紧急联系人', name: 'contact_name', key: 'contact_name', placeholder: '请填写紧急联系人' },
