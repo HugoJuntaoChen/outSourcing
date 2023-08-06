@@ -42,7 +42,7 @@ export default function IMessage (props: PropsWithChildren<IProps>) {
   }, [data])
 
   return (
-    <Modal title={'查看信息'} footer={null} onCancel={onCancel} visible={visible} width={838}>
+    <Modal title={'查看信息'} footer={null} onCancel={onCancel} open={visible} width={838}>
       <div className='IModal-body'>
         {renderChildren}
       </div>

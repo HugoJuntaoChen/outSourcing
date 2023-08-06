@@ -63,7 +63,7 @@ const IForm = forwardRef<FormInstance<any>, IFormProps>(
       >
         {config?.itemRender ? config?.itemRender({ form, extraValues }, <IFormItem {...config} key={config.key} />) : <IFormItem {...config} key={config.key} />}
       </Item>
-    )) as JSX.Element[]
+    ))
 
     return (
       <Form
