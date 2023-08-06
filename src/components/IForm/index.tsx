@@ -1,24 +1,25 @@
 import React, { forwardRef } from 'react'
-import { Form, Input, Select, Button, type FormInstance, Row, Col } from 'antd'
+import { Form, Input, Select, Button, type FormInstance, Row, Col, DatePicker } from 'antd'
 import './index.less'
 import type { IFormItemProps, IFormProps } from '../type'
 import { EComponentType } from '@/enums/componentType'
 
 const { Item } = Form
 
-const IFormItem = (props: IFormItemProps) => {
-  // 待输入
-  switch (props.type) {
+const IFormItem = ({ type, props }: IFormItemProps) => {
+  switch (type) {
     case EComponentType.INPUT:
-      return <Input placeholder={props.placeholder} className='multiple-form-item'/>
+      return <Input {...props} className='multiple-form-item' />
     case EComponentType.SELECT:
-      return <Select className='multiple-form-item' placeholder={props.placeholder} />
+      return <Select className='multiple-form-item' options={[{ label: 1, value: 1 }]} {...props} />
+    case EComponentType.DATEPICKER:
+      return <DatePicker showTime className='multiple-form-item' {...props} />
     default:
       return null
   }
 }
 
-function renderMultiple (arr?: IFormItemProps[][]) {
+const renderMultiple = (arr?: IFormItemProps[][]) => {
   if (!arr) return null
   const renderObj: JSX.Element[] = []
   arr.forEach(curRowIFormItems => {
@@ -51,8 +52,18 @@ function renderMultiple (arr?: IFormItemProps[][]) {
 
 const IForm = forwardRef<FormInstance<any>, IFormProps>(
   (props, ref) => {
-    const { forms, formProps, search, tiling, multipleForms } = props
+    const { forms, formProps, search, tiling = true, multipleForms, render, extraValues } = props
     const [form] = Form.useForm()
+
+    const components = forms?.map((config, i) => (
+      <Item
+        {...config}
+        key={`${config.key}-${i}`}
+        name={config.key}
+      >
+        {config?.itemRender ? config?.itemRender({ form, extraValues }, <IFormItem {...config} key={config.key} />) : <IFormItem {...config} key={config.key} />}
+      </Item>
+    )) as JSX.Element[]
 
     return (
       <Form
@@ -64,17 +75,9 @@ const IForm = forwardRef<FormInstance<any>, IFormProps>(
         className={search ? 'search-form' : 'multiple-form'}
         {...formProps}
       >
-        {tiling
-          ? forms?.map((config, i) => (
-            <Form.Item
-                {...config}
-                key={`${config.key}-${i}`}
-                name={config.key}
-              >
-              <IFormItem {...config} key={config.key} />
-            </Form.Item>
-          ))
-          : renderMultiple(multipleForms)}
+        {render?.(components)}
+        {!render && tiling && components}
+        {!render && !tiling && renderMultiple(multipleForms)}
         {Boolean(search) && (
           <Form.Item>
             <Button type="primary" htmlType="submit">

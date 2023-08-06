@@ -77,7 +77,7 @@ export default function PersonelEditForm (props: IProps) {
       const pass = await formRef.current.validateFields()
       if (!pass) return
       onOk(formRef.current.getFieldsValue())
-    } catch (e) {}
+    } catch (e) { }
   }
 
   return (
@@ -89,6 +89,7 @@ export default function PersonelEditForm (props: IProps) {
         formProps={{
           labelCol: { span: 5 }
         }}
+        forms={[]}
         multipleForms={multipleForms}
       ></IForm>
     </IModal>
