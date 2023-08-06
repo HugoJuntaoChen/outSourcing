@@ -5,18 +5,23 @@ import { data } from '@/mock'
 import IFormTableOperation from '@/components/IFormTableOperation'
 import { EComponentType } from '@/enums/componentType'
 import PersonelEditForm from './components/EditForm'
+import IMessage from '@/components/IMessage'
 
 const Personnel: React.FC = () => {
   const [formVisible, setFormVisible] = useState(false)
+  const [messageVisible, setMessageVisible] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
-  const viewFn = () => {
-
+  const [index, setIndex] = useState(-1)
+  const viewFn = (index: number) => {
+    setIndex(index)
+    setMessageVisible(true)
   }
-  const editFn = () => {
+  const editFn = (index: number) => {
+    setIndex(index)
     setFormVisible(true)
     setIsEdit(true)
   }
-  const deleteFn = () => {
+  const deleteFn = (index: number) => {
 
   }
 
@@ -74,6 +79,7 @@ const Personnel: React.FC = () => {
       />
 
       {formVisible && <PersonelEditForm isEdit={isEdit} data={null} onOk={() => { setFormVisible(false) }} onCancel={() => { setFormVisible(false) }} />}
+      <IMessage visible={messageVisible} data={data[index] as any || null} onCancel={() => { setMessageVisible(false) }}/>
     </>
   )
 }
