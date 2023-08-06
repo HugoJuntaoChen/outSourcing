@@ -20,6 +20,9 @@ const AnalysisCost = lazy(async () => await import('@/pages/Analysis/Cost'))
 const AnalysisSchedule = lazy(
   async () => await import('@/pages/Analysis/Schedule')
 )
+const ProjectDetail = lazy(
+  async () => await import('@/pages/Project/pages/Detail')
+)
 
 export const routes = [
   {
@@ -42,6 +45,11 @@ export const routes = [
     Element: Project
   },
   {
+    label: '',
+    path: '/project/:id',
+    Element: ProjectDetail
+  },
+  {
     label: '数据分析',
     path: '/analysis',
     Element: Analysis
@@ -52,8 +60,8 @@ export const routes = [
     Element: AnalysisCost
   },
   {
-    label: '成本分析',
-    path: '/排期分析/schedule',
+    label: '排期分析',
+    path: '/analysis/schedule',
     Element: AnalysisSchedule
   },
   {

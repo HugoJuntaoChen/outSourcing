@@ -1,7 +1,61 @@
-.root-nav {
-    width: 200px;
-    height: 100%;
-    flex-shrink: 0;
-    background: var(--white-white, #FFF);
-    box-shadow: 0px 2px 6px 0px rgba(21, 34, 50, 0.04);
+.root-nav-wrapper {
+  width: 200px;
+  height: 100%;
+  background: #fff;
+  padding: 8px;
+
+  .root-nav {
+    border: 0;
+
+    .ant-menu-item {
+      padding: 8px;
+      border-radius: 4px;
+
+      &:hover {
+        color: var(--ant-primary-color);
+
+        path {
+          fill: currentColor;
+        }
+      }
+    }
+
+
+
+    .ant-menu-light .ant-menu-item:hover,
+    .ant-menu-light .ant-menu-item-active,
+    .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+    .ant-menu-light .ant-menu-submenu-active,
+    .ant-menu-light .ant-menu-submenu-title:hover {
+      color: var(--ant-primary-color);
+    }
+
+    .ant-menu-submenu-title:hover {
+      color: var(--ant-primary-color);
+
+      .ant-menu-submenu-arrow {
+        color: var(--ant-primary-color);
+      }
+    }
+
+
+    .ant-menu-item-selected,
+    .ant-menu-item-selected:hover {
+      background-color: var(--ant-primary-color);
+      color: #FFF;
+
+      path {
+        fill: #fff;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+
+
+    .ant-menu-submenu-selected {
+      color: #334155
+    }
+  }
 }

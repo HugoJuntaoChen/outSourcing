@@ -1,0 +1,5 @@
+export { default as Personnel } from './Personnel'
+export { default as Copywriting } from './Copywriting'
+export { default as Director } from './Director'
+export { default as Finance } from './Finance'
+export { default as Flaking } from './Flaking'
