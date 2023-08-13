@@ -24,6 +24,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    },
     project: './tsconfig.json'
   },
   plugins: [
@@ -32,6 +35,15 @@ module.exports = {
   rules: {
     '@typescript-eslint/explicit-function-return-type': 0,
     'react/react-in-jsx-scope': 'off',
-    'react/jsx-uses-react': 'off'
+    'react/jsx-uses-react': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    'no-return-await': 'off',
+    '@typescript-eslint/return-await': 'off',
+    // 'react/jsx-uses-spaces': 'error',
+    'react/jsx-indent': ['error', 2],
+    'react/display-name': 'off',
+    '@typescript-eslint/no-misused-promises': 'off'
   }
 }

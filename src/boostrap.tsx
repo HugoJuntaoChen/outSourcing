@@ -1,11 +1,6 @@
+// eslint-disable-next-line react/no-deprecated
 import { render } from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App'
-
+import 'antd/dist/antd.less'
+import Layout from './layout'
 const rootElement = document.getElementById('root')
-render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  rootElement
-)
+render(<Layout />, rootElement)
