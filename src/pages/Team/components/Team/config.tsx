@@ -2,15 +2,29 @@ import { Tag } from 'antd'
 import dayjs from 'dayjs'
 import type { ColumnsType } from 'antd/es/table'
 import { EncipherText } from '@/components'
+import { EComponentType } from '@/enums'
+import { type IFormItemProps } from '@/components/type'
+
+export const forms: IFormItemProps[] = [
+  {
+    type: EComponentType.SELECT,
+    key: 'name',
+    props: {
+      placeholder: '请选择公司/工作室',
+      style: { width: 200 }
+    }
+  }
+]
+
 export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '公司名称',
-    dataIndex: '1',
+    dataIndex: 'name',
     width: 100
   },
   {
     title: '公司描述',
-    dataIndex: '2',
+    dataIndex: 'description',
     width: 80
   },
   {
@@ -20,7 +34,7 @@ export const columns: ColumnsType<Record<string, any>> = [
   },
   {
     title: '地址',
-    dataIndex: '4',
+    dataIndex: 'address',
     width: 100,
     render: (text) => <Tag color="magenta">{text}</Tag>
   },

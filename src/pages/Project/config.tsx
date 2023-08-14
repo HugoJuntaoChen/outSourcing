@@ -1,10 +1,60 @@
 import { Tag } from 'antd'
 import dayjs from 'dayjs'
 import type { ColumnsType } from 'antd/es/table'
+import { EComponentType } from '@/enums'
+import type { IFormItemProps } from '@/components/type'
+
+export const forms: IFormItemProps[] = [
+  {
+    type: EComponentType.INPUT,
+    key: 'creator',
+    props: {
+      placeholder: '请输入创建人搜索',
+      style: { width: 200 }
+    }
+  },
+  {
+    type: EComponentType.INPUT,
+    key: 'name',
+    props: {
+      placeholder: '请输入项目名称/ID搜索',
+      style: { width: 200 }
+    }
+  },
+  {
+    type: EComponentType.SELECT,
+    key: 'status',
+    props: {
+      placeholder: '请选择项目状态',
+      style: { width: 200 }
+    }
+  },
+  {
+    type: EComponentType.NUMBERRADIUS,
+    key: 'numberRadius',
+    items: [
+      {
+        key: 'min_budget',
+        type: EComponentType.INPUTNUMBER
+      },
+      {
+        key: 'max_budget',
+        type: EComponentType.INPUTNUMBER
+      }
+    ],
+    props: {
+      placeholder: '请选择项目资金预算',
+      style: {
+        width: 200
+      }
+    }
+  }
+]
+
 export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '项目名称/ID',
-    dataIndex: '1',
+    dataIndex: 'project_name',
     width: 180
   },
   {
@@ -14,7 +64,7 @@ export const columns: ColumnsType<Record<string, any>> = [
   },
   {
     title: '项目状态',
-    dataIndex: '3',
+    dataIndex: 'delay_risk',
     width: 80,
     render: (text) => <Tag color="magenta">{text}</Tag>
   },

@@ -20,10 +20,10 @@ export const IconFacility = <svg xmlns="http://www.w3.org/2000/svg" width="20" h
 
 export const IconRole = <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
   <path d="M8.59997 5.16663H3.7C3.3134 5.16663 3 5.48002 3 5.86663V14.9666C3 15.3532 3.3134 15.6666 3.7 15.6666H16.2999C16.6865 15.6666 16.9999 15.3532 16.9999 14.9666V14.0916" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M5.1001 9.71671H7.90008" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" />
-  <path d="M5.1001 12.5166H13.5001" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" />
-  <path d="M13.5001 9.36663C14.6599 9.36663 15.6001 8.42642 15.6001 7.26663C15.6001 6.10683 14.6599 5.16663 13.5001 5.16663C12.3403 5.16663 11.4001 6.10683 11.4001 7.26663C11.4001 8.42642 12.3403 9.36663 13.5001 9.36663Z" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M17.0001 11.6132C16.3165 10.2774 14.9001 9.36664 13.5001 9.36664C12.1001 9.36664 11.4027 9.76315 10.6827 10.4166" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+  <path d="M5.10059 9.71671H7.90057" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" />
+  <path d="M5.10059 12.5166H13.5005" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" />
+  <path d="M13.5004 9.36663C14.6602 9.36663 15.6004 8.42642 15.6004 7.26663C15.6004 6.10683 14.6602 5.16663 13.5004 5.16663C12.3406 5.16663 11.4004 6.10683 11.4004 7.26663C11.4004 8.42642 12.3406 9.36663 13.5004 9.36663Z" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+  <path d="M17 11.6132C16.3164 10.2774 14.9 9.36664 13.5 9.36664C12.1 9.36664 11.4025 9.76315 10.6826 10.4166" stroke="#64748B" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
 </svg>
 
 export const IconVehicle = <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

@@ -1,0 +1,31 @@
+.input-group-wrapper.ant-input-group.ant-input-group-compact {
+  display: flex;
+
+  .input-start,
+  .input-end {
+    flex: 1;
+    margin-right: 0;
+  }
+
+  .input-start {
+    .ant-input-number {
+      border-right: 0;
+    }
+  }
+
+  .input-end {
+    .ant-input-number {
+      border-left: 0;
+    }
+  }
+
+  .input-center {
+    width: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    pointer-events: none;
+    border-left: 0;
+    border-right: 0;
+    margin-bottom: 8px;
+    padding: 0;
+  }
+}

@@ -16,6 +16,7 @@ const Nav = () => {
       <Menu
         className="root-nav"
         mode="inline"
+        defaultOpenKeys={[location?.pathname?.split('/')?.slice(0, -1)?.join('/')]}
         defaultSelectedKeys={[location?.pathname]}
         items={navRoutes?.map((i) => getItem(i))}
         onClick={(opt) => {

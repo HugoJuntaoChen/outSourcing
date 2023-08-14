@@ -1,12 +1,28 @@
 import { Routes, Route } from 'react-router-dom'
-import { routes } from '@/router'
-export default function App (): JSX.Element {
+import { type RouteItemProps, routes } from '@/router'
+import React from 'react'
+
+const getRoutes = (data: RouteItemProps[]): any => {
+  // eslint-disable-next-line array-callback-return
+  return data.map((route, index) => {
+    const { Element, children } = route
+    if (children?.length) {
+      return getRoutes(children)
+    } else if (Element) {
+      return <Route {...route} element={<Element />} key={index} />
+    }
+  })
+}
+
+const App: React.FC = () => {
   return (
     <Routes>
-      {routes.map((route, index) => {
-        const { Element } = route
+      {getRoutes(routes)}
+      {/* {routes.map((route, index) => {
+        const { Element, children } = route
         return <Route {...route} element={<Element />} key={index} />
-      })}
+      })} */}
     </Routes>
   )
 }
+export default App

@@ -15,5 +15,9 @@ export async function baseGetRequest<T = any> (url: string, config?: AxiosReques
 }
 
 export async function basePostRequest<T = any> (url: string, data?: Record<string, unknown>, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  return baseRequest.post(url, data, config)
+  const { current, pageSize, ...values } = data ?? {}
+  const params = pageSize ? { ...values, page_size: pageSize, page_index: current } : data
+  return baseRequest.post(url, params, config)
 }
+
+export * from './api'

@@ -9,12 +9,13 @@
     .ant-table {
       flex: 1;
       overflow: auto;
+
       .ant-table-cell {
         border: 0;
       }
 
       .ant-table-thead {
-        background: #f1f5f9;
+        background: rgba(241, 245, 249, 1);
         font-size: 14px;
         font-weight: 500;
         border-radius: 2px 2px 0px 0px;
@@ -27,7 +28,16 @@
             display: none;
           }
         }
+
+        .ant-table-column-sorters {
+          justify-content: start;
+
+          .ant-table-column-title {
+            flex: none;
+          }
+        }
       }
+
       .ant-btn {
         font-size: 13px
       }
@@ -60,6 +70,7 @@
       .ant-pagination-options {
         position: absolute;
         right: 0;
+
         &::before {
           position: absolute;
           top: 50%;

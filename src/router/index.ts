@@ -14,7 +14,8 @@ const Analysis = lazy(async () => await import('@/pages/Analysis'))
 const Facility = lazy(async () => await import('@/pages/Facility'))
 const Project = lazy(async () => await import('@/pages/Project'))
 const Role = lazy(async () => await import('@/pages/Role'))
-const Team = lazy(async () => await import('@/pages/Team'))
+const TeamInside = lazy(async () => await import('@/pages/Team/Inside'))
+const TeamOutside = lazy(async () => await import('@/pages/Team/Outside'))
 const Vehicle = lazy(async () => await import('@/pages/Vehicle'))
 const AnalysisCost = lazy(async () => await import('@/pages/Analysis/Cost'))
 const AnalysisSchedule = lazy(
@@ -24,7 +25,14 @@ const ProjectDetail = lazy(
   async () => await import('@/pages/Project/pages/Detail')
 )
 
-export const routes = [
+export interface RouteItemProps {
+  label?: string
+  path?: string
+  Element?: React.LazyExoticComponent<React.FC<any>>
+  children?: RouteItemProps[]
+}
+
+export const routes: RouteItemProps[] = [
   {
     path: '/',
     Element: Personnel
@@ -37,7 +45,16 @@ export const routes = [
   {
     label: '团队管理',
     path: '/team',
-    Element: Team
+    children: [
+      {
+        path: '/team/inside',
+        Element: TeamInside
+      },
+      {
+        path: '/team/outside',
+        Element: TeamOutside
+      }
+    ]
   },
   {
     label: '项目信息',
@@ -83,7 +100,15 @@ export const routes = [
 
 export const navRoutes = [
   { label: '人员管理', path: '/personnel', icon: IconPersonnel },
-  { label: '团队管理', path: '/team', icon: IconTeam },
+  {
+    label: '团队管理',
+    path: '/team',
+    icon: IconTeam,
+    children: [
+      { label: '内部信息', path: '/inside' },
+      { label: '外部信息', path: '/outside' }
+    ]
+  },
   { label: '项目信息', path: '/project', icon: IconProject },
   {
     label: '数据分析',

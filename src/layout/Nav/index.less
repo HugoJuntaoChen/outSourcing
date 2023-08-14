@@ -10,34 +10,20 @@
     .ant-menu-item {
       padding: 8px;
       border-radius: 4px;
+    }
 
+    .ant-menu-item,
+    .ant-menu-submenu {
       &:hover {
-        color: var(--ant-primary-color);
-
         path {
           fill: currentColor;
         }
       }
     }
 
-
-
-    .ant-menu-light .ant-menu-item:hover,
-    .ant-menu-light .ant-menu-item-active,
-    .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
-    .ant-menu-light .ant-menu-submenu-active,
-    .ant-menu-light .ant-menu-submenu-title:hover {
-      color: var(--ant-primary-color);
+    .ant-menu-sub.ant-menu-inline {
+      background-color: rgba(250, 251, 252, 1);
     }
-
-    .ant-menu-submenu-title:hover {
-      color: var(--ant-primary-color);
-
-      .ant-menu-submenu-arrow {
-        color: var(--ant-primary-color);
-      }
-    }
-
 
     .ant-menu-item-selected,
     .ant-menu-item-selected:hover {
@@ -45,7 +31,7 @@
       color: #FFF;
 
       path {
-        fill: #fff;
+        fill: currentColor;
       }
 
       &::after {

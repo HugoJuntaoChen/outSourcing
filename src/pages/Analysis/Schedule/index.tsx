@@ -29,7 +29,7 @@ const Schedule = () => {
                     }
                   },
                   {
-                    type: EComponentType.DATEPICKER,
+                    type: EComponentType.RANGEPICKER,
                     key: '2',
                     props: {
                       style: { width: 200 },

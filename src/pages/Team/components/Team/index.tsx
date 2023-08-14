@@ -2,15 +2,20 @@ import React, { useEffect, useRef } from 'react'
 import { IFormTable } from '@/components'
 import { columns, forms } from './config'
 import { data } from '@/mock'
-import { useGetProjectList } from '@/hooks'
-import type { FormInstance } from 'antd'
-const Project: React.FC = () => {
+import { useGetCompanyList } from '@/hooks/team'
+import { type FormInstance } from 'antd'
+
+interface Props {
+  inside?: boolean
+}
+
+const Team: React.FC<Props> = ({ inside = false }) => {
   const formRef = useRef<FormInstance<any>>()
 
-  const { pagination, list, loading, getProjectList } = useGetProjectList()
+  const { pagination, list, loading, getCompanyList } = useGetCompanyList()
 
   const onReload = (params?: Record<string, any>) => {
-    getProjectList({ ...formRef.current?.getFieldsValue(), current: 1, ...params })
+    getCompanyList({ ...formRef.current?.getFieldsValue(), current: 1, ...params, inside })
   }
 
   useEffect(() => {
@@ -45,4 +50,4 @@ const Project: React.FC = () => {
   )
 }
 
-export default Project
+export default Team
