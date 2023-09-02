@@ -1,14 +1,12 @@
-import { Tag } from 'antd'
-import dayjs from 'dayjs'
+import moment from 'moment'
 import type { ColumnsType } from 'antd/es/table'
 import { EncipherText } from '@/components'
 import { EComponentType } from '@/enums'
 import type { IFormItemProps } from '@/components/type'
-import { LevelOptions } from '@/config'
-
+import { LevelIcon, LevelOptions } from '@/config'
 export const forms: IFormItemProps[] = [
   {
-    type: EComponentType.SELECT,
+    type: EComponentType.CompanySelect,
     key: 'company_id',
     props: {
       placeholder: '请选择公司',
@@ -16,7 +14,7 @@ export const forms: IFormItemProps[] = [
     }
   },
   {
-    type: EComponentType.SELECT,
+    type: EComponentType.RoleSelect,
     key: 'roles',
     props: {
       placeholder: '请选择角色',
@@ -25,7 +23,7 @@ export const forms: IFormItemProps[] = [
     }
   },
   {
-    type: EComponentType.SELECT,
+    type: EComponentType.Select,
     key: 'level',
     props: {
       placeholder: '请选择级别',
@@ -35,7 +33,7 @@ export const forms: IFormItemProps[] = [
     }
   },
   {
-    type: EComponentType.INPUT,
+    type: EComponentType.Input,
     key: 'name',
     props: {
       placeholder: '请输入姓名',
@@ -48,28 +46,30 @@ export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '公司名称',
     dataIndex: 'company',
-    width: 180
+    width: 200,
+    render: (val, { companyNameMap }) => companyNameMap?.[val]
   },
   {
     title: '角色',
     dataIndex: 'role',
-    width: 80
+    width: 100,
+    render: (val, { roleConfig }) => roleConfig?.map?.[val] ?? val
   },
   {
     title: '姓名',
     dataIndex: 'name',
-    width: 80
+    width: 100
   },
   {
     title: '级别',
     dataIndex: 'level',
     width: 100,
-    render: (text) => <Tag color="magenta">{text}</Tag>
+    render: (text) => LevelIcon(text)
   },
   {
     title: '身份证',
     dataIndex: 'id_card',
-    width: 240
+    width: 220
   },
   {
     title: '银行卡',
@@ -79,9 +79,9 @@ export const columns: ColumnsType<Record<string, any>> = [
   },
   {
     title: '更新时间',
-    dataIndex: '7',
-    width: 240,
-    sorter: true,
-    render: (text) => dayjs(Number(text)).format('YYYY-MM-DD HH:MM')
+    dataIndex: 'UpdatedAt',
+    width: 180,
+    sorter: (a, b) => new Date(a.UpdatedAt).valueOf() - new Date(b.UpdatedAt).valueOf(),
+    render: (val) => moment(new Date(val)).format('YYYY-MM-DD HH:MM:SS')
   }
 ]

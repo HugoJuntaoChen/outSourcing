@@ -1,11 +1,12 @@
 import { type EComponentType } from '@/enums/componentType'
 import type { FormInstance, FormItemProps, FormProps, FormRule } from 'antd'
+import { type ReactNode } from 'react'
 
 export type ItemRender = (config: Record<string, any>, component?: JSX.Element) => any
 export type ItemsRender = (components?: JSX.Element[]) => any
 export interface IFormItemProps extends FormItemProps {
   key: string
-  label?: string
+  label?: string | ReactNode
   type: EComponentType
   props?: Record<string, any>
   name?: string
@@ -15,6 +16,11 @@ export interface IFormItemProps extends FormItemProps {
   customRender?: () => JSX.Element
   itemRender?: ItemRender
   items?: IFormItemProps[]
+  inside?: boolean
+  rowConfig?: {
+    span?: number
+    push?: number
+  }
 }
 
 export interface IFormProps extends FormProps {
@@ -30,6 +36,7 @@ export interface IFormProps extends FormProps {
   loading?: boolean
   onSearch?: (params?: Record<string, any>) => any
   getFormRef?: (a: FormInstance<any>) => any
+  inside?: boolean
 }
 
 export type ITableProps = Record<string, any>

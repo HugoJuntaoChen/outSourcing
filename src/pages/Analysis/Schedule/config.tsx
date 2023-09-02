@@ -2,52 +2,47 @@ import type { ColumnsType } from 'antd/es/table'
 export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '项目总数',
-    dataIndex: '1',
-    width: 75
+    dataIndex: 'project_num',
+    width: 70
   },
   {
     title: '单项目平均员工数',
-    dataIndex: '2',
-    width: 130
-  },
-  {
-    title: '预算总额(元)',
-    dataIndex: '3',
-    width: 100
-  },
-  {
-    title: '项目平均预算(元)',
-    dataIndex: '4',
-    width: 120
-  },
-  {
-    title: '实际支出总额(元)',
-    dataIndex: '7',
-    width: 120
-  },
-  {
-    title: '项目平均支出(元)',
-    dataIndex: '7',
-    width: 120
-  },
-  {
-    title: '实际支出/预算',
-    dataIndex: '3',
+    dataIndex: 'worker_num_avg',
     width: 110
   },
   {
-    title: '人均产值(元)',
-    dataIndex: '4',
-    width: 100
+    title: '平均周期(s)',
+    dataIndex: 'project_avg_cycle',
+    width: 80
   },
   {
-    title: '人均毛利润(元)',
-    dataIndex: '7',
+    title: '项目延期数量',
+    dataIndex: 'project_delay_count',
+    width: 90
+  },
+  {
+    title: '项目延期风险数量',
+    dataIndex: 'project_delay_risk_count',
+    width: 110
+  },
+  {
+    title: '项目延期百分比(%)',
+    dataIndex: 'project_delay_percent',
     width: 120
   },
   {
-    title: '人均天成本(元)',
-    dataIndex: '7',
+    title: '项目延期风险百分比(%)',
+    dataIndex: 'project_delay_risk_percent',
+    width: 140
+  },
+  {
+    title: '人均工期(天)',
+    dataIndex: 'person_avg_schedule',
+    width: 80
+  },
+  {
+    title: '人均项目吞吐率(%)',
+    dataIndex: 'person_avg_throughput_percent',
     width: 120
   }
-]
+].map(i => ({ ...i, render: val => val ?? 0 }))

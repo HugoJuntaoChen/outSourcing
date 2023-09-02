@@ -15,10 +15,12 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "antd": "^4.24.12",
-    "axios": "^1.4.0",
+    "area-data": "^5.0.6",
+    "axios": "^1.5.0",
     "dayjs": "^1.11.9",
     "echarts": "^5.4.3",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^6.13.0",

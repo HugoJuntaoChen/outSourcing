@@ -117,3 +117,17 @@ export const IconAdd = <svg xmlns="http://www.w3.org/2000/svg" width="24" height
 export const IconFile = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
   <path d="M13.5 7.5L12.5685 5.7923C12.2181 5.14977 11.5446 4.75 10.8127 4.75H6.75C5.64543 4.75 4.75 5.64543 4.75 6.75V11M19.25 9.75V17.25C19.25 18.3546 18.3546 19.25 17.25 19.25H6.75C5.64543 19.25 4.75 18.3546 4.75 17.25V7.75H17.25C18.3546 7.75 19.25 8.64543 19.25 9.75Z" stroke="#334155" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 </svg>
+
+export const IconSearch = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M12.8337 12.8333L10.3337 10.3333M3.16699 7.33329C3.16699 5.03211 5.03247 3.16663 7.33366 3.16663C9.63485 3.16663 11.5003 5.03211 11.5003 7.33329C11.5003 9.63448 9.63485 11.5 7.33366 11.5C5.03247 11.5 3.16699 9.63448 3.16699 7.33329Z" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+
+export const IconFileI = <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 24" fill="none">
+  <path fillRule="evenodd" clipRule="evenodd" d="M2 0C0.895431 0 0 0.89543 0 2V22C0 23.1046 0.895431 24 2 24H18C19.1046 24 20 23.1046 20 22V0H2ZM20 1.57356e-05V4L16 1.53859e-05L20 1.57356e-05Z" fill="#E2E8F0"/>
+  <path fillRule="evenodd" clipRule="evenodd" d="M16 1.52588e-05V4H20L16 1.52588e-05Z" fill="#94A3B8"/>
+  <path fillRule="evenodd" clipRule="evenodd" d="M20 8V4H16L20 8Z" fill="#CBD5E1"/>
+</svg>
+
+export const IconDownload = <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M3.95825 12.2917V13.5417C3.95825 14.9224 5.07754 16.0417 6.45825 16.0417H13.5416C14.9223 16.0417 16.0416 14.9224 16.0416 13.5417V12.2917M9.99992 11.875V3.95834M9.99992 11.875L7.29159 8.95834M9.99992 11.875L12.7083 8.95834" stroke="#64748B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>

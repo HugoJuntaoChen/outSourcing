@@ -1,14 +1,14 @@
-import { Button, Modal } from 'antd'
+import { Button, Modal, type ModalProps } from 'antd'
 import { type PropsWithChildren } from 'react'
 import './index.less'
-interface IProps {
+interface IProps extends ModalProps {
   onOk: (args?: any) => void
   onCancel: (args?: any) => void
   isEdit: boolean
 }
 
 export default function IModal (props: PropsWithChildren<IProps>) {
-  const { onCancel, onOk, children, isEdit } = props
+  const { onCancel, onOk, children, isEdit, ...prop } = props
   const footer = () => {
     return (
       <>
@@ -19,11 +19,12 @@ export default function IModal (props: PropsWithChildren<IProps>) {
   }
   return (
     <Modal
-    title={`${isEdit ? '编辑' : '添加'}信息`}
-     open={true} width={838}
-     footer={footer()}
-     onCancel={onCancel}
-     className='IModal'
+      title={`${isEdit ? '编辑' : '添加'}信息`}
+      open={true} width={838}
+      footer={footer()}
+      onCancel={onCancel}
+      className='IModal'
+      {...prop}
      >
       {children}
     </Modal>

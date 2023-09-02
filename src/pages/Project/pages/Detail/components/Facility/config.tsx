@@ -7,31 +7,31 @@ export const columns: ColumnsType<Record<string, any>> = [
   },
   {
     title: '设备类型',
-    dataIndex: '1',
+    dataIndex: 'type',
     width: 180
   },
   {
     title: '设备名称',
-    dataIndex: '2',
+    dataIndex: 'equipment_model',
     width: 180
   },
   {
     title: '数量',
-    dataIndex: '3',
+    dataIndex: 'quantity',
     width: 180
   },
   {
     title: '天数',
-    dataIndex: '4',
+    dataIndex: 'days',
     width: 100
   },
   {
     title: '单价',
-    dataIndex: '7',
+    dataIndex: 'price_per_day',
     width: 80
   },
   {
     title: '金额',
-    dataIndex: '7'
+    dataIndex: 'total_price'
   }
 ]

@@ -10,6 +10,7 @@ export interface GetProjectListRequest extends PageProps {
 }
 
 export interface Project {
+  ID?: number
   customer: string
   department: string
   project_name: string

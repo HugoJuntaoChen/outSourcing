@@ -1,38 +1,36 @@
-import { Tag } from 'antd'
-import dayjs from 'dayjs'
+import moment from 'moment'
 import type { ColumnsType } from 'antd/es/table'
 export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '车辆类型',
-    dataIndex: '1',
+    dataIndex: 'type',
     width: 180
   },
   {
     title: '车辆型号',
-    dataIndex: '2',
+    dataIndex: 'name',
     width: 150
   },
   {
     title: '车辆编号',
-    dataIndex: '3',
-    width: 80
+    dataIndex: 'number',
+    width: 120
   },
   {
     title: '座位类型',
-    dataIndex: '4',
-    width: 100,
-    render: (text) => <Tag color="magenta">{text}</Tag>
+    dataIndex: 'seat_count',
+    width: 100
   },
   {
     title: '个数',
-    dataIndex: '7',
-    width: 240
+    dataIndex: 'quantity',
+    width: 120
   },
   {
     title: '登记日期',
-    dataIndex: '7',
+    dataIndex: 'CreatedAt',
     width: 240,
-    sorter: true,
-    render: (text) => dayjs(Number(text)).format('YYYY-MM-DD HH:MM')
+    sorter: (a, b) => new Date(a.UpdatedAt).valueOf() - new Date(b.UpdatedAt).valueOf(),
+    render: (val) => moment(new Date(val)).format('YYYY-MM-DD HH:MM')
   }
 ]

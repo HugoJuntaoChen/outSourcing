@@ -1,10 +1,19 @@
 export enum EComponentType {
   NONE = 'NONE',
-  INPUT = 'INPUT',
-  SELECT = 'SELECT',
-  DATEPICKER = 'DATEPCIKER',
-  ARRAY = 'ARRAY',
-  INPUTNUMBER = 'INPUTNUMBER',
-  NUMBERRADIUS = 'NUMBERRADIUS',
-  RANGEPICKER = 'RANGEPICKER'
+  Input = 'Input',
+  Select = 'Select',
+  DatePicker = 'DatePicker',
+  Array = 'Array',
+  InputNumber = 'InputNumber',
+  NumberAdius = 'NumberAdius',
+  RangePicker = 'RangePicker',
+  CompanySelect = 'CompanySelect',
+  City = 'City',
+  InboxOutlined = 'InboxOutlined',
+  RoleSelect = 'RoleSelect',
+  FieldSelect = 'FieldSelect',
+  BankSelect = 'BankSelect',
+  DelayRiskSelect = 'DelayRiskSelect',
+  IdentitySelect = 'IdentitySelect',
+  VehicleSelect = 'VehicleSelect'
 }

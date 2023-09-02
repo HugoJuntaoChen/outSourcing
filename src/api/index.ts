@@ -5,7 +5,9 @@ export async function baseGetRequest<T = any> (url: string, config?: AxiosReques
   if (config?.data) {
     const data = config.data
     const query = Object.keys(data).reduce((acc, key) => {
-      acc += `${key}=${data[key]}&`
+      if (data[key]) {
+        acc += `${key}=${data[key]}&`
+      }
       return acc
     }, '?')
     url.slice(0, url.length - 1)

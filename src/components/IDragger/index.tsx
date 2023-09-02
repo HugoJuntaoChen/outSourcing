@@ -1,20 +1,22 @@
 import { IconFile } from '@/static/Icons'
-import Dragger from 'antd/lib/upload/Dragger'
+import Dragger, { type DraggerProps } from 'antd/lib/upload/Dragger'
 import React from 'react'
 
-interface Props {
+interface Props extends DraggerProps {
   hint?: string
 }
-const IDragger: React.FC<Props> = ({ hint }) => (
-  <Dragger>
-    <div className='upload-icon'>{IconFile} </div>
-    <div className="upload-text">点击或拖拽文件到此处上传</div>
-    <div className="upload-hint">
-      {hint}
-    </div>
-    <div className='upload-button'>
-      <span className='button'>上传</span>
-    </div>
-  </Dragger>
-)
+const IDragger: React.FC<Props & any> = ({ hint, ...props }) => {
+  return (
+    <Dragger {...props}>
+      <div className='upload-icon'>{IconFile} </div>
+      <div className="upload-text">点击或拖拽文件到此处上传</div>
+      <div className="upload-hint">
+        {hint}
+      </div>
+      <div className='upload-button'>
+        <span className='button'>上传</span>
+      </div>
+    </Dragger>
+  )
+}
 export default IDragger

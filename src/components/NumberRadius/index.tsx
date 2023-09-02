@@ -11,7 +11,7 @@ const NumberRadius = ({ props, items, form }: NumberRadiusProps) => {
   return (
     <Input.Group compact {...props} className='input-group-wrapper'>
       <Item className='input-start' name={minKey}>
-        <InputNumber min={0} max={max} placeholder='最小金额' {...items?.[0]?.props} />
+        <InputNumber min={0} max={max} controls={false} placeholder='最小金额' {...items?.[0]?.props} />
       </Item>
       <Input
         placeholder="~"
@@ -19,7 +19,7 @@ const NumberRadius = ({ props, items, form }: NumberRadiusProps) => {
         className='input-center'
       />
       <Item className='input-end' name={maxKey}>
-        <InputNumber min={min ?? 0} placeholder='最大金额' {...items?.[0]?.props} />
+        <InputNumber min={min ?? 0} controls={false} placeholder='最大金额' {...items?.[0]?.props} />
       </Item>
     </Input.Group>
   )

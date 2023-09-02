@@ -31,3 +31,21 @@ export const useGetProjectList = () => {
 
   return { pagination, list, loading, getProjectList }
 }
+
+export const useGetProjectDetail = () => {
+  const [data, setData] = useState<Record<string, any>>({})
+  const [loading, setLoading] = useState(false)
+
+  const getProjectDetail = async (data?: { id: number }) => {
+    setLoading(true)
+
+    try {
+      const result: GetProjectListResponse = await projectApi.getProjectDetail(data)
+      setData(result?.data || {})
+    } catch (error) {} finally {
+      setLoading(false)
+    }
+  }
+
+  return { data, loading, getProjectDetail }
+}

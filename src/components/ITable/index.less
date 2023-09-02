@@ -67,6 +67,24 @@
       margin: 24px 0 0 0;
       justify-content: start;
 
+      .ant-pagination-item-active {
+        background-color: var(--ant-primary-color);
+
+        a {
+          color: #fff;
+        }
+      }
+
+      .ant-pagination-disabled {
+        .ant-pagination-item-link {
+          background: var(--gray-200, #E2E8F0);
+
+          span {
+            color: #64748B
+          }
+        }
+      }
+
       .ant-pagination-options {
         position: absolute;
         right: 0;

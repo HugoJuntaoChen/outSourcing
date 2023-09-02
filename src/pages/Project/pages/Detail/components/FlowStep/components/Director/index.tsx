@@ -1,74 +1,52 @@
-import { IDragger } from '@/components'
-import { IconAdd } from '@/static/Icons'
-import { Col, Form, Row, Select, DatePicker, InputNumber, Upload } from 'antd'
+import { FileView } from '@/components'
+import { Descriptions, Empty, Space } from 'antd'
 
-import React, { useEffect } from 'react'
-const { Item } = Form
+import React, { useMemo } from 'react'
+import { useProjectDetailContext } from '../../../../context'
+import moment from 'moment'
+const Director: React.FC = () => {
+  const { data } = useProjectDetailContext()
 
-interface Props {
-  formApi: (form: any) => any
-}
-const Director: React.FC<Props> = ({ formApi }) => {
-  const [form] = Form.useForm()
-
-  useEffect(() => {
-    formApi?.(form)
-  }, [form])
+  const info: any = useMemo(() => data?.recording_plan ?? {}, [data])
 
   return (
-    <Form form={form} name="basic" className='copywriting' autoComplete="off">
-      <Row>
-        <Col span={8}>
-          <Item name="执行人" label="执行人">
-            <Select placeholder='请选择执行人' style={{ width: '100%' }} />
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="预算" label="预算">
-            <InputNumber placeholder='请输入预算金额' controls={false} style={{ width: '100%' }} />
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="截止日期" label="截止日期">
-            <DatePicker showTime placeholder='请选择预期截止日期' style={{ width: '100%' }} />
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="实际成本" label="实际成本">
-            <InputNumber placeholder='请输入实际成本金额' controls={false} style={{ width: '100%' }} />
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="完成日期" label="完成日期">
-            <DatePicker showTime placeholder='请选择实际完成日期' style={{ width: '100%' }} />
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="实际人力" label="实际人力">
-            <InputNumber placeholder='请输入人力天' addonAfter="人力天" controls={false} style={{ width: '100%' }} />
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="客户签字截图" label="客户签字截图">
-            <Upload
-              action="/upload.do"
-              listType="picture-card"
-            >
-              <div>
-                <div className='icon'>{IconAdd}</div>
-                <div className='text'>点击上传图片</div>
-              </div>
-            </Upload>
-          </Item>
-
-        </Col>
-        <Col span={16}>
-          <Item name="节点产物" label="节点产物">
-            {IDragger({ hint: 'Only pdf, png, jpg can be uploaded, and the size doe:100MB' })}
-          </Item>
-        </Col>
-      </Row>
-    </Form >
+    <div className='project-detail-step-wrapper'>
+      <Descriptions>
+        <Descriptions.Item label="执行人">{info?.execute_people?.map((item: any) => item?.name)?.join('、')}</Descriptions.Item>
+        <Descriptions.Item label="预算">{info?.budget >= 0 ? `${info?.budget / 100}元` : '未知'}</Descriptions.Item>
+        <Descriptions.Item label="截止日期">{moment.unix(info?.deadline ?? 0).format('YYYY-MM-DD HH:MM')}</Descriptions.Item>
+        <Descriptions.Item label="实际成本">{info?.real_cost >= 0 ? `${info?.real_cost / 100}元` : '未知'}</Descriptions.Item>
+        <Descriptions.Item label="完成日期">{info?.complete_date >= 0 ? moment.unix(info?.complete_date ?? 0).format('YYYY-MM-DD HH:MM') : '未知'}</Descriptions.Item>
+        <Descriptions.Item label="实际人力">{info?.real_effors >= 0 ? `${info?.real_effors / 100}/人力天` : '未知'}</Descriptions.Item>
+        <Descriptions.Item label="文案终稿">
+          <Space direction='vertical' style={{ width: '100%' }}>
+            {info?.pure_file?.length
+              ? (
+                  info?.text_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
+              : <Empty description='暂未上传' style={{ width: 80 }} />
+            }
+          </Space>
+        </Descriptions.Item>
+        <Descriptions.Item label="脚本终稿">
+          <Space direction='vertical' style={{ width: '100%' }}>
+            {info?.pure_file?.length
+              ? (
+                  info?.script_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
+              : <Empty description='暂未上传' style={{ width: 80 }} />
+            }
+          </Space>
+        </Descriptions.Item>
+        <Descriptions.Item label="素材终稿">
+          <Space direction='vertical' style={{ width: '100%' }}>
+            {info?.material_file?.length
+              ? (
+                  info?.material_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
+              : <Empty description='暂未上传' style={{ width: 80 }} />
+            }
+          </Space>
+        </Descriptions.Item>
+      </Descriptions>
+    </div>
   )
 }
 

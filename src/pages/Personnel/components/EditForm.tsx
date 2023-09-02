@@ -1,73 +1,108 @@
 import IForm from '@/components/IForm'
 import { EComponentType } from '@/enums'
-import { type FormInstance, Form, Select, Input, Row, Col } from 'antd'
-import { useRef } from 'react'
+import { type FormInstance } from 'antd'
+import { useMemo, useRef } from 'react'
 import IModal from '@/components/IModal'
 import { type IFormProps } from '@/components/type'
+import { BankOptions, LevelOptions } from '@/config'
 
-const { Item } = Form
 interface IProps {
-  isEdit: boolean
   data?: any
   onOk: (value: any) => void
   onCancel: () => void
+  loading: boolean
+  inside?: boolean
 }
 
 const multipleForms: IFormProps['multipleForms'] = [
   [
     {
-      type: EComponentType.INPUT,
+      type: EComponentType.Input,
       label: '姓名',
-      name: 'name',
       key: 'name',
-      placeholder: '请输入名字',
-      rules: [{ required: true, message: '请输入名字' }],
-      validateTrigger: 'onBlur'
+      props: { placeholder: '请输入名字' }
     },
-    { type: EComponentType.INPUT, label: '公司', name: 'company', key: 'company', placeholder: '请选择公司' }
-  ],
-  [
-    { type: EComponentType.INPUT, label: '所属团队', name: 'team', key: 'team', placeholder: '请选择团队' },
-    { type: EComponentType.INPUT, label: '角色', name: 'role', key: 'role', placeholder: '请选择角色' }
-  ],
-  [
-    { type: EComponentType.SELECT, label: '级别', name: 'level', key: 'level', placeholder: '请选择级别' },
-    { type: EComponentType.INPUT, label: '身份证', name: 'idCard', key: 'idCard', placeholder: '身份证' }
-  ],
-  [
-    { type: EComponentType.INPUT, label: '手机号', name: 'phone', key: 'phone', placeholder: '请输入手机号' }
-  ],
-  [
     {
-      key: '',
-      type: EComponentType.NONE,
-      customRender: () => {
-        return (
-          <Row className='multiple-form-row'>
-            <Col span={12}>
-              <Item label='银行卡' name='bankName'>
-                <Select options={[]} placeholder='请选择银行' style={{ width: 240 }}>
-                </Select>
-              </Item>
-            </Col>
-            <Col span={12}>
-              <Item name='bankId' dependencies={['bankName']}>
-                <Input placeholder='输入银行卡号'/>
-              </Item>
-            </Col>
-          </Row>
-        )
-      }
+      type: EComponentType.CompanySelect,
+      label: '公司',
+      key: 'company_id',
+      props: { placeholder: '请选择公司' }
     }
   ],
   [
-    { type: EComponentType.INPUT, label: '紧急联系人', name: 'contact_name', key: 'contact_name', placeholder: '请填写紧急联系人' },
-    { type: EComponentType.INPUT, label: '联系人电话', name: 'contact_phone', key: 'contact_phone', placeholder: '请填写联系人电话' }
+    {
+      type: EComponentType.Input,
+      label: '所属团队',
+      key: 'department',
+      props: { placeholder: '请输入团队' }
+    },
+    {
+      type: EComponentType.RoleSelect,
+      label: '角色',
+      key: 'role',
+      props: { placeholder: '请选择角色' }
+    }
+  ],
+  [
+    {
+      type: EComponentType.Select,
+      label: '级别',
+      key: 'level',
+      props: { options: LevelOptions, placeholder: '请选择级别' }
+    },
+    {
+      type: EComponentType.Input,
+      label: '身份证',
+      key: 'id_card',
+      props: { placeholder: '请输入身份证' }
+    }
+  ],
+  [
+    {
+      type: EComponentType.Input,
+      label: '手机号',
+      key: 'phone_number',
+      props: { placeholder: '请输入手机号' }
+    }
+  ],
+  [
+    {
+      type: EComponentType.BankSelect,
+      label: '银行卡',
+      key: 'bank_branch',
+      props: { placeholder: '请选择银行' }
+    },
+    {
+      type: EComponentType.Input,
+      label: '银行帐号',
+      key: 'bank_account',
+      props: { options: BankOptions, placeholder: '请输入银行帐号' }
+    }
+  ],
+  [
+    {
+      type: EComponentType.Input,
+      label: '紧急联系人',
+      key: 'emergency_contact_name',
+      props: { placeholder: '请输入紧急联系人' }
+    },
+    {
+      type: EComponentType.Input,
+      label: '联系人电话',
+      key: 'emergency_contact_phone',
+      props: { placeholder: '请输入联系人电话' }
+    }
   ]
-]
+].map(arr => arr.map(config => ({
+  ...config,
+  rules: [{ required: true, message: config?.props?.placeholder }],
+  validateTrigger: 'onBlur'
+})))
 
 export default function PersonelEditForm (props: IProps) {
-  const { data, onOk, onCancel, isEdit } = props
+  const { data, onOk, onCancel, loading, inside } = props || {}
+
+  const isEdit = useMemo(() => Boolean(data?.id), [])
 
   const formRef = useRef<FormInstance>(null)
 
@@ -81,17 +116,18 @@ export default function PersonelEditForm (props: IProps) {
   }
 
   return (
-    <IModal onCancel={onCancel} onOk={onFinish} isEdit={isEdit}>
+    <IModal onCancel={onCancel} onOk={onFinish} isEdit={isEdit} confirmLoading={loading}>
       <IForm
-        initialValues={data || {}}
         tiling={false}
         ref={formRef}
         formProps={{
-          labelCol: { span: 5 }
+          labelCol: { span: 6 },
+          initialValues: data || {}
         }}
         forms={[]}
         multipleForms={multipleForms}
-      ></IForm>
+        inside={inside}
+      />
     </IModal>
 
   )

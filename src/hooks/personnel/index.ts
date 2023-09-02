@@ -1,14 +1,14 @@
 import { personnelApi } from '@/api'
 import { useState } from 'react'
 import { pick } from 'lodash'
-import type { Company, GetCompanyListResponse, GetWorkListRequest, PageProps } from '@/types'
+import type { Worker, GetWorkListRequest, GetWorkListResponse, PageProps } from '@/types'
 export const useGetWorkList = () => {
   const [pagination, setPagination] = useState<PageProps>({
     current: 1,
     pageSize: 10,
     total: 0
   })
-  const [list, setList] = useState<Company[]>([])
+  const [list, setList] = useState<Worker[]>([])
   const [loading, setLoading] = useState(false)
 
   const getWorkList = async (data?: GetWorkListRequest) => {
@@ -16,9 +16,9 @@ export const useGetWorkList = () => {
     const params = { ...pick(pagination, ['current', 'pageSize']), ...data }
 
     try {
-      const result: GetCompanyListResponse = await personnelApi.getWorkList(params)
-      const { companies, total } = result?.data || {}
-      setList(companies)
+      const result: GetWorkListResponse = await personnelApi.getWorkList(params)
+      const { workers, total } = result?.data ?? {}
+      setList(workers ?? [])
       setPagination({
         ...pick(params, ['current', 'pageSize']),
         total

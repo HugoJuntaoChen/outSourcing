@@ -1,43 +1,46 @@
 import { Button } from 'antd'
 import './index.less'
+import Protal from '../Protal'
+import { ProtalTypeEnum } from '../Protal/type'
 interface IProps {
-  index: number
   editFn?: (args: any) => void
   viewFn?: (args: any) => void
   deleteFn?: (args: any) => void
+  record?: Record<string, any>
+  onReload?: (params?: Record<string, any>) => Promise<void>
+  nameKey?: string
 }
 
 export default function IFormTableOperation (props: IProps) {
-  const { index, editFn, viewFn, deleteFn } = props
+  const { record, onReload, editFn, viewFn, deleteFn, nameKey } = props
   return (
-    <div className={'table-operation-flex'} key={index}>
+    <div className={'table-operation-flex'} key={record?.id}>
       <Button
         onClick={() => {
-          viewFn?.(index)
+          viewFn?.(record)
         }}
+        size='small'
         style={{ color: '#FF6624' }}
-        type="link"
+        type="text"
       >
         查看
       </Button>
       <Button
         onClick={() => {
-          editFn?.(index)
+          editFn?.(record)
         }}
+        size='small'
         style={{ color: '#FF6624' }}
-        type="link"
+        type="text"
       >
         编辑
       </Button>
-      <Button
-        onClick={() => {
-          deleteFn?.(index)
-        }}
-        style={{ color: '#FF384C' }}
-        type="link"
-      >
-        删除
-      </Button>
+      <Protal
+        type={ProtalTypeEnum.DELETE}
+        title={`确认删除${record?.[nameKey ?? 'name']}?`}
+        onOk={async () => deleteFn?.(record)}
+        onReload={onReload}
+      />
     </div>
   )
 }

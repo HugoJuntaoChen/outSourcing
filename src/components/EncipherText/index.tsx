@@ -12,7 +12,7 @@ const EncipherText: React.FC<EncipherTextProp> = ({ text, least = 6, view }) => 
     <Space>
       {visible ? text : filterText}
       {(view ?? false) && (visible
-        ? <EyeOutlined onClick={() => { setVisible(false) }} />
+        ? <EyeOutlined onClick={() => { setVisible(false) }} style={{ color: ' var(--ant-primary-color)' }} />
         : <EyeInvisibleOutlined onClick={() => { setVisible(true) } } />)}
     </Space>
   )
