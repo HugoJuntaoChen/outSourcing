@@ -7,7 +7,7 @@ import type { Company } from '@/types'
 import { teamApi } from '@/api'
 import EditForm from './components/EditForm'
 import { PlusOutlined } from '@ant-design/icons'
-import { LevelEnums } from '@/enums/config'
+import { FieldMap, LevelEnums } from '@/enums/config'
 interface Props {
   inside?: boolean
 }
@@ -112,6 +112,7 @@ const Team: React.FC<Props> = ({ inside = false }) => {
           { label: '详细地址', value: data?.address },
           { label: '开户银行', value: data?.bank_name },
           { label: '银行帐号', value: data?.bank_account },
+          { label: '视频领域', value: data?.field?.map((key: any) => FieldMap[key])?.join('、') },
           { label: '营业执照号', value: data?.unified_credit_code, span: 24 },
           {
             label: '营业执照',
