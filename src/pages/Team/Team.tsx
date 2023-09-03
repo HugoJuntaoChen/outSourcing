@@ -36,21 +36,22 @@ const Team: React.FC<Props> = ({ inside = false }) => {
   }
 
   const editFn = (record?: Company) => {
-    const { province, city } = record ?? {}
+    const { province, city, business_license: businessLicense } = record ?? {}
     setData({
       ...record,
-      provinceCity: province && city ? [province, city] : []
+      provinceCity: province && city ? [province, city] : [],
+      business_license: businessLicense ? [{ url: businessLicense, uid: 1 }] : []
     })
     setFormVisible(true)
   }
 
   const deleteFn = async (record: Company) => teamApi.deleteCompany({ id: record?.ID })
 
-  const handleSubmit = async (values: Company & { provinceCity: string[] }) => {
-    const { provinceCity, ...params } = values
+  const handleSubmit = async (values: Company & { provinceCity: string[], business_license: Array<{ url: string, uid: string }> }) => {
+    const { provinceCity, business_license: businessLicense, ...params } = values
     setUpdateLoading(true)
     try {
-      await teamApi.updateCompany({ ...params, province: provinceCity?.[0], city: provinceCity?.[1], inside, id: data?.ID })
+      await teamApi.updateCompany({ ...params, province: provinceCity?.[0], city: provinceCity?.[1], business_license: businessLicense?.[0]?.url, inside, id: data?.ID })
       setFormVisible(false)
       message.success('操作成功')
       onReload()

@@ -3,7 +3,7 @@ import { SearchOutlined } from '@ant-design/icons'
 import { Form, Input, Select, Button, type FormInstance, Row, Col, DatePicker, InputNumber, Cascader } from 'antd'
 import type { IFormItemProps, IFormProps } from '../type'
 import { EComponentType } from '@/enums/componentType'
-import { CompanySelect, IDragger, NumberRadius, RoleSelect } from '..'
+import { CompanySelect, IDragger, IUpload, NumberRadius, RoleSelect } from '..'
 import './index.less'
 import { pcaa } from 'area-data'
 import { BankOptions, DelayRiskOptions, FieldOptions, IdentityOptions, VehicleOptions } from '@/config'
@@ -41,6 +41,8 @@ const IFormItem = (config: IFormItemProps, form?: FormInstance<any>) => {
       )
     case EComponentType.InboxOutlined:
       return <IDragger {...props} />
+    case EComponentType.Upload:
+      return <IUpload {...props}/>
     case EComponentType.RoleSelect:
       return <RoleSelect {...props}/>
     case EComponentType.FieldSelect:
