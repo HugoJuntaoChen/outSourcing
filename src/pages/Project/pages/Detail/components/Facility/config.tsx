@@ -1,3 +1,4 @@
+import { FacilityTypeMap } from '@/enums/config'
 import type { ColumnsType } from 'antd/es/table'
 export const columns: ColumnsType<Record<string, any>> = [
   {
@@ -8,7 +9,8 @@ export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '设备类型',
     dataIndex: 'type',
-    width: 180
+    width: 180,
+    render: val => FacilityTypeMap[val] || val
   },
   {
     title: '设备名称',

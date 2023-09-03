@@ -23,3 +23,4 @@ export async function basePostRequest<T = any> (url: string, data?: Record<strin
 }
 
 export * from './api'
+export * from './upload'
