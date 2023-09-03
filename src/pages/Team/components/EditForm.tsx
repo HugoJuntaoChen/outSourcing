@@ -87,11 +87,11 @@ const multipleForms: IFormProps['multipleForms'] = [
   ],
   [
     {
-      type: EComponentType.InboxOutlined,
+      type: EComponentType.Upload,
       label: '营业执照',
       key: 'business_license',
       rowConfig: { span: 24 },
-      labelCol: { span: 4 },
+      labelCol: { span: 3 },
       rules: [],
       props: {
         maxCount: 1,
@@ -129,7 +129,7 @@ export default function TeamEditForm (props: IProps) {
         tiling={false}
         ref={formRef}
         formProps={{
-          labelCol: { span: 8 },
+          labelCol: { span: 6 },
           initialValues: data || {}
         }}
         forms={[]}
