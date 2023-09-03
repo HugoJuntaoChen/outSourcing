@@ -1,0 +1,48 @@
+.root-nav-wrapper {
+  width: 200px;
+  height: 100%;
+  background: #fff;
+  padding: 8px;
+
+  .root-nav {
+    border: 0;
+
+    .ant-menu-item {
+      padding: 8px;
+      border-radius: 4px;
+    }
+
+    .ant-menu-item,
+    .ant-menu-submenu {
+
+      &:hover {
+        path {
+          fill: currentColor;
+        }
+      }
+    }
+
+    .ant-menu-sub.ant-menu-inline {
+      background-color: rgba(250, 251, 252, 1);
+    }
+
+    .ant-menu-item-selected,
+    .ant-menu-item-selected:hover {
+      background-color: var(--ant-primary-color);
+      color: #FFF;
+
+      path {
+        fill: currentColor;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+
+
+    .ant-menu-submenu-Selected {
+      color: #334155
+    }
+  }
+}

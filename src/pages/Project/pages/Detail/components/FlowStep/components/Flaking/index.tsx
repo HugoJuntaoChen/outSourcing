@@ -1,54 +1,50 @@
-import { IDragger } from '@/components'
-import { IconAdd } from '@/static/Icons'
-import { Col, Form, Row, Upload } from 'antd'
 
-import React, { useEffect } from 'react'
-const { Item } = Form
+import React, { useMemo } from 'react'
+import { useProjectDetailContext } from '../../../../context'
+import { Descriptions, Empty, Space } from 'antd'
+import { FileView } from '@/components'
+const Flaking: React.FC = () => {
+  const { data } = useProjectDetailContext()
 
-interface Props {
-  formApi: (form: any) => any
-}
-const Flaking: React.FC<Props> = ({ formApi }) => {
-  const [form] = Form.useForm()
-
-  useEffect(() => {
-    formApi?.(form)
-  }, [form])
+  const info: any = useMemo(() => data?.result_plan ?? {}, [data])
 
   return (
-    <Form form={form} name="basic" className='copywriting' autoComplete="off">
-      <Row>
-        <Col span={24}>
-          <Item name="客户签字截图" label="客户签字截图">
-            <Upload
-              action="/upload.do"
-              listType="picture-card"
-            >
-              <div>
-                <div className='icon'>{IconAdd}</div>
-                <div className='text'>点击上传图片</div>
-              </div>
-            </Upload>
-          </Item>
-
-        </Col>
-        <Col span={8}>
-          <Item name="纯净版" label="纯净版">
-            {IDragger({ hint: '大小不超过100MB' })}
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="交付版" label="交付版">
-            {IDragger({ hint: '大小不超过100MB' })}
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="工程文件" label="工程文件">
-            {IDragger({ hint: '大小不超过100MB' })}
-          </Item>
-        </Col>
-      </Row>
-    </Form >
+    <div className='project-detail-step-wrapper'>
+      <Descriptions>
+        <Descriptions.Item label="纯净版">
+          <Space direction='vertical' style={{ width: '100%' }}>
+            {info?.pure_file?.length
+              ? (
+                  info?.pure_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
+              : <Empty description='暂未上传' style={{ width: 80 }} />
+            }
+          </Space>
+        </Descriptions.Item>
+        <Descriptions.Item label="交付版">
+          <Space direction='vertical' style={{ width: '100%' }}>
+            {info?.upload_file?.length
+              ? (
+                  info?.upload_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
+              : <Empty description='暂未上传' style={{ width: 80 }} />
+            }
+          </Space>
+        </Descriptions.Item>
+        <Descriptions.Item label="工程文件">
+          <Space direction='vertical' style={{ width: '100%' }}>
+            {info?.project_file?.length
+              ? (
+                  info?.upload_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
+              : <Empty description='暂未上传' style={{ width: 80 }} />
+            }
+          </Space>
+        </Descriptions.Item>
+        {/* <Descriptions.Item label="结算单">
+          <Space direction='vertical' style={{ width: '100%' }}>
+            {info?.complete_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />)}
+          </Space>
+        </Descriptions.Item> */}
+      </Descriptions>
+    </div>
   )
 }
 

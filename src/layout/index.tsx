@@ -1,18 +1,19 @@
 import React, { Suspense, useEffect } from 'react'
 import { ConfigProvider, Skeleton } from 'antd'
-import Header from './Header'
-import Nav from './Nav'
 import Content from './Content'
-import App from '@/App'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './index.less'
 import zhCN from 'antd/es/locale/zh_CN'
+import Login from './Login'
+import GlobalContext from './context'
 
 const Layout = () => {
   useEffect(() => {
     ConfigProvider.config({
       theme: {
-        primaryColor: '#FF6624'
+        primaryColor: '#FF6624',
+        processingColor: '#9E9E9E',
+        errorColor: '#FF384C'
       }
     })
   }, [])
@@ -21,15 +22,14 @@ const Layout = () => {
     <div className="root-warpper">
       <ConfigProvider locale={zhCN}>
         <BrowserRouter>
-          <Header />
-          <div style={{ display: 'flex', height: 'calc(100vh - 48px)' }}>
-            <Nav />
-            <Content>
-              <Suspense fallback={<Skeleton active />}>
-                <App />
-              </Suspense>
-            </Content>
-          </div>
+          <Suspense fallback={<Skeleton active />}>
+            <GlobalContext>
+              <Routes>
+                <Route path='/login' element={<Login />} />
+                <Route path='*' element={<Content />} />
+              </Routes>
+            </GlobalContext>
+          </Suspense>
         </BrowserRouter>
       </ConfigProvider>
     </div>

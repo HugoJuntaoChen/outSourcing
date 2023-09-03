@@ -1,17 +1,33 @@
-.IModal-body {
-  background-color: #F8FAFC;
-  padding: 24px 0px;
-  .IMessage-label {
-    color: #334155;
-    display: inline-block;
-    min-width: 84px;
-    text-align: right;
-    margin-right: 8px;
-  }
-  .row {
-    margin-bottom: 20px
-  }
-  .row:last-child {
-    margin-bottom: 0px;
+.view-modal-wrapper {
+
+  .IModal-body {
+    background-color: #F8FAFC;
+    padding: 24px 0px;
+    border-radius: 8px;
+    overflow: hidden;
+
+
+    .IMessage-label {
+      color: rgba(51, 65, 85, 0.48);
+      display: inline-block;
+      min-width: 84px;
+      text-align: right;
+      margin-right: 8px;
+    }
+
+    .IMessage-text {
+      color: rgba(51, 65, 85, 1);
+      white-space: normal;
+      word-break: break-all;
+    }
+
+
+    .ant-col {
+      display: flex;
+    }
+
+    .row:last-child {
+      margin-bottom: 0px;
+    }
   }
 }

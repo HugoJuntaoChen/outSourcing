@@ -1,53 +1,59 @@
-import Tag from '@/components/Tag'
-import { Col, Form, Row, Select } from 'antd'
-import React, { useEffect } from 'react'
-const { Item } = Form
-
-interface Props {
-  formApi: (form: any) => any
+import ITag from '@/components/Tag'
+import { Col, Empty, Row, Tag } from 'antd'
+import React from 'react'
+import { useProjectDetailContext } from '../../../../context'
+import { Colon } from '@/components'
+interface StatusTagProps {
+  status: number
+  has: number
+  total: number
 }
-const Personnel: React.FC<Props> = ({ formApi }) => {
-  const [form] = Form.useForm()
 
-  useEffect(() => {
-    formApi?.(form)
-  }, [form])
+const StatusTag = ({ status, has, total }: StatusTagProps) => {
+  switch (status) {
+    case 1:
+      return <ITag type='success'>未派单</ITag>
+    case 2:
+      if (!has) {
+        return <ITag type='warning'>自动派单中，尚无人接单</ITag>
+      } else {
+        return <ITag type='warning'>自动派单中，{has ?? 0}人已接单，还缺{total - has}人接单</ITag>
+      }
+    case 3:
+      return <ITag type='success'>无人接单，请指派</ITag>
+    case 4:
+      return <ITag type='success'>接单已完成</ITag>
+    default:
+      return <div></div>
+  }
+}
+
+const Personnel: React.FC = () => {
+  const { data } = useProjectDetailContext()
 
   return (
-    <Form form={form} name="basic" className='personnel' autoComplete="off">
-      <Row>
-        <Col span={8}>
-          <Item name="文案" label="文案">
-            <Select placeholder='' />
-            <Tag type='warning'>自动派单中，尚无人接单</Tag>
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="导演" label="导演">
-            <Select />
-            <Tag type='warning'>自动派单中，2人已接单，还缺1人接单</Tag>
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="制片" label="制片">
-            <Select />
-            <Tag type='error'>无人接单，请指派</Tag>
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="摄影摄像" label="摄影摄像">
-            <Select />
-            <Tag type='success'>接单已完成</Tag>
-          </Item>
-        </Col>
-        <Col span={8}>
-          <Item name="后期" label="后期">
-            <Select />
-            <Tag type='success'>接单已完成</Tag>
-          </Item>
-        </Col>
-      </Row>
-    </Form>
+    <Row style={{ marginBottom: 12 }}>
+      {data?.people_plan?.role_details?.length
+        ? (
+            data?.people_plan?.role_details?.map((item: any, i: any) => (
+              <Col span={8} key={i} style={{ marginBottom: 20 }}>
+                <Row>
+                  <Col span={6} style={{ marginTop: 4, textAlign: 'right' }}>
+                    {item?.role_name}
+                    <Colon />
+                  </Col>
+                  <Col span={18}>
+                    <div className='descriptions-item-div'>
+                      {item?.has_accept_name?.map((acceptName: string, i: any) => <Tag color='' key={i}>{acceptName}</Tag>)}
+                    </div>
+                    <StatusTag status={item?.status} has={item?.has_accept_number ?? 0} total={item?.total_need_number ?? 0} />
+                  </Col>
+                </Row>
+              </Col>
+            ))
+          )
+        : <Empty />}
+    </Row>
   )
 }
 

@@ -1,51 +1,66 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { IFormTable } from '@/components'
-import { columns } from './config'
-import { data } from '@/mock'
-import { EComponentType } from '@/enums'
+import { columns, forms } from './config'
+import { useGetProjectList } from '@/hooks'
+import { Button, type FormInstance } from 'antd'
+import { useNavigate } from 'react-router'
+
 const Project: React.FC = () => {
+  const formRef = useRef<FormInstance<any>>()
+  const history = useNavigate()
+  const { pagination, list, loading, getProjectList } = useGetProjectList()
+
+  const onReload = (params?: Record<string, any>) => {
+    getProjectList({ ...formRef.current?.getFieldsValue(), current: 1, ...params })
+  }
+
+  useEffect(() => {
+    onReload()
+  }, [])
+
   return (
     <IFormTable
       form={{
-        forms: [
-          {
-            type: EComponentType.INPUT,
-            key: '1',
-            props: {
-              placeholder: '请输入创建人搜索',
-              style: { width: 200 }
-            }
-          },
-          {
-            type: EComponentType.INPUT,
-            key: '2',
-            props: {
-              placeholder: '请输入项目名称/ID搜索',
-              style: { width: 200 }
-            }
-          },
-          {
-            type: EComponentType.SELECT,
-            key: '3',
-            props: {
-              placeholder: '请选择项目状态',
-              style: { width: 200 }
-            }
-          },
-          {
-            type: EComponentType.SELECT,
-            key: '4',
-            props: {
-              placeholder: '请选择项目资金预算',
-              style: { width: 200 }
-            }
-          }
-        ],
-        search: true
+        forms,
+        search: true,
+        loading,
+        getFormRef: form => {
+          formRef.current = form
+        },
+        formProps: {
+          onFinish: onReload
+        }
       }}
       table={{
-        columns,
-        dataSource: data
+        columns: [
+          ...columns,
+          {
+
+            title: '操作',
+            width: 100,
+            dataIndex: 'operation',
+            render: (_: any, record: any, index: number) => (
+              <Button
+                onClick={() => {
+                  history(`/project/${record?.ID}`)
+                }}
+                size='small'
+                style={{ color: '#FF6624' }}
+                type="text"
+              >
+                查看
+              </Button>
+            )
+          }
+        ],
+        dataSource: list || [],
+        loading,
+        pagination: {
+          ...pagination,
+          onChange: (current: number, pageSize: number) => {
+            onReload({ current, pageSize })
+          }
+        }
       }}
     />
   )

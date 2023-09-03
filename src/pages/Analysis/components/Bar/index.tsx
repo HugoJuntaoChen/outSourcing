@@ -18,12 +18,10 @@ const Bar: React.FC<BarProps> = ({ options, id, title, width = '100%', height = 
         backgroundColor: 'rgba(255, 255,255, 0.6)',
         padding: 0,
         formatter: (params: Array<Record<string, any>>) => {
-          console.log(params)
-
           return `
             <div style="border-radius: 6px; padding: 8px;">
               <div style="color: var(--text-5, #1D2129); font-size: 16px; font-weight: 500;height: 20px;margin-bottom: 4px;">
-                ${title}${params?.[0]?.name}
+                <span>${title}</span> <span style="margin-left: 8px;">${params?.[0]?.name}</span>
               </div>
               ${params?.map(
             (i) => `

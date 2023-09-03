@@ -1,38 +1,30 @@
-import { IconAdd } from '@/static/Icons'
-import { Col, Form, Row, Upload } from 'antd'
+import React from 'react'
+import { Descriptions, Empty, Image } from 'antd'
 
-import React, { useEffect } from 'react'
-const { Item } = Form
+import { useProjectDetailContext } from '../../../../context'
 
-interface Props {
-  formApi: (form: any) => any
-}
-const Finance: React.FC<Props> = ({ formApi }) => {
-  const [form] = Form.useForm()
-
-  useEffect(() => {
-    formApi?.(form)
-  }, [form])
+const Finance: React.FC = () => {
+  const { data } = useProjectDetailContext()
 
   return (
-    <Form form={form} name="basic" className='copywriting' autoComplete="off">
-      <Row>
-        <Col span={24}>
-          <Item name="财务结算图" label="财务结算截图">
-            <Upload
-              action="/upload.do"
-              listType="picture-card"
-            >
-              <div>
-                <div className='icon'>{IconAdd}</div>
-                <div className='text'>点击上传图片</div>
-              </div>
-            </Upload>
-          </Item>
+    <div>
+      <Descriptions>
+        <Descriptions.Item label="财务结算截图" labelStyle={{ width: 120, textAlign: 'right', display: 'block' }} span={3}>
+          {data?.money_plan?.money_file?.length
+            ? (
+                data?.money_plan?.money_file?.map((item: any, i: any) => (
+                  <Image
+                    width={100}
+                    key={i}
+                    src={item?.link}
+                  />
+                ))
+              )
+            : <Empty description='暂未上传' imageStyle={{ width: 80 }} />}
 
-        </Col>
-      </Row>
-    </Form >
+        </Descriptions.Item>
+      </Descriptions>
+    </div>
   )
 }
 

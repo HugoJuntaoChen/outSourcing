@@ -1,6 +1,8 @@
 .search-form {
   .ant-form-item {
     margin-right: 8px;
+    margin-bottom: 8px;
+
     .ant-form-item-row {
       height: 100%;
     }
@@ -10,10 +12,18 @@
 
 .multiple-form {
   .multiple-form-row {
-    width: 838px;
+    width: 100%;
     margin-bottom: 20px;
-    .multiple-form-item {
-      width: 300px
+
+    &:last-child {
+      margin-bottom: 0;
     }
+
+    .multiple-form-item {
+      width: 100%
+    }
+
+
   }
+
 }

@@ -1,40 +1,52 @@
-import { Tag } from 'antd'
-import dayjs from 'dayjs'
+import moment from 'moment'
 import type { ColumnsType } from 'antd/es/table'
 import { EncipherText } from '@/components'
+import { EComponentType } from '@/enums'
+import { type IFormItemProps } from '@/components/type'
+
+export const forms: IFormItemProps[] = [
+  {
+    type: EComponentType.Input,
+    key: 'name',
+    props: {
+      placeholder: '请输入公司/工作室',
+      style: { width: 200 }
+    }
+  }
+]
+
 export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '公司名称',
-    dataIndex: '1',
-    width: 100
+    dataIndex: 'name',
+    width: 180
   },
   {
     title: '公司描述',
-    dataIndex: '2',
-    width: 80
+    dataIndex: 'description',
+    width: 240
   },
   {
     title: '工作室',
-    dataIndex: '3',
-    width: 80
+    dataIndex: 'studio',
+    width: 180
   },
   {
     title: '地址',
-    dataIndex: '4',
-    width: 100,
-    render: (text) => <Tag color="magenta">{text}</Tag>
+    dataIndex: 'address',
+    width: 220
   },
   {
     title: '营业执照',
-    dataIndex: '7',
-    width: 240,
+    dataIndex: 'unified_credit_code',
+    width: 180,
     render: (text) => <EncipherText text={text} />
   },
   {
-    title: '更新日期',
-    dataIndex: '7',
-    width: 240,
-    sorter: true,
-    render: (text) => dayjs(Number(text)).format('YYYY-MM-DD HH:MM')
+    title: '更新时间',
+    dataIndex: 'UpdatedAt',
+    width: 180,
+    sorter: (a, b) => new Date(a.UpdatedAt).valueOf() - new Date(b.UpdatedAt).valueOf(),
+    render: (val) => moment(new Date(val)).format('YYYY-MM-DD HH:MM:SS')
   }
 ]
