@@ -1,4 +1,4 @@
-import { type LevelEnums } from '@/enums/config'
+import { type FieldEnums, type LevelEnums } from '@/enums/config'
 import { type PageProps } from '.'
 
 export interface GetCompanyListRequest extends PageProps {
@@ -20,6 +20,7 @@ export interface Company {
   studio?: string
   level?: LevelEnums
   bank_account?: string
+  field: FieldEnums[]
 }
 
 export interface GetCompanyListResponse {

@@ -100,7 +100,7 @@ export enum FieldEnums {
   'Documentary' = 4,
   'Short' = 5,
 }
-export const FieldMap = {
+export const FieldMap: Record<FieldEnums | any, string> = {
   [FieldEnums.Promotional]: '宣传片',
   [FieldEnums.Advertising]: '广告片',
   [FieldEnums.Micro]: '微电影',
@@ -124,4 +124,13 @@ export const IdentityMap: Record<IdentityEnums | any, string> = {
   [IdentityEnums.FinanceManager]: '辅材',
   [IdentityEnums.CEO]: '老板',
   [IdentityEnums.Client]: '顾客'
+}
+
+export enum FacilityTypeEnums {
+  CameraShooting = 1,
+  Lamplight = 2
+}
+export const FacilityTypeMap: Record<FacilityTypeEnums | any, string> = {
+  [FacilityTypeEnums.CameraShooting]: '摄像设备',
+  [FacilityTypeEnums.Lamplight]: '灯光设备'
 }
