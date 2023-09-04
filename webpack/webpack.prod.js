@@ -9,6 +9,7 @@ const webpackProdConfig = {
   output: {
     filename: 'js/[name].[contenthash].js',
     chunkFilename: 'js/[name].[contenthash].js',
+    publicPath: 'https://bixi.yjw.ink/',
     clean: true
   },
   optimization: {
