@@ -73,7 +73,7 @@ const Cost = () => {
                     type: EComponentType.RangePicker,
                     key: 'timeRange',
                     props: {
-                      style: { width: 360 },
+                      style: { width: 380 },
                       allowClear: false
                     }
                   }
