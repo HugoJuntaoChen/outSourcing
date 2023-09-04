@@ -3,7 +3,7 @@ import { message } from 'antd'
 import axios, { type AxiosError } from 'axios'
 
 const baseRequest = axios.create({
-  baseURL: '', // TODO
+  baseURL: 'https://ask.bixi.yjw.ink',
   withCredentials: true,
   timeout: 10 * 1000,
   headers: {

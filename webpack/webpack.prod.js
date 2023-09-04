@@ -1,6 +1,4 @@
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-// const { path } = require('path')
 const { merge } = require('webpack-merge')
 
 const baseWebpackConfig = require('./webpack.base')
@@ -9,8 +7,8 @@ const webpackProdConfig = {
   mode: 'production',
   // 输出配置
   output: {
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
+    filename: 'js/[name].[contenthash].js',
+    chunkFilename: 'js/[name].[contenthash].js',
     clean: true
   },
   optimization: {
