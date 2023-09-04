@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { type RouteItemProps, routes } from '@/router'
 import { Empty, Skeleton } from 'antd'
@@ -21,7 +21,11 @@ const getRoutes = (data: RouteItemProps[]): any => {
 }
 
 const Content = () => {
-  const { token } = useGlobalContext()
+  const { token, getRoleAll } = useGlobalContext()
+
+  useEffect(() => {
+    token && getRoleAll()
+  }, [])
 
   if (!token) {
     return <Login />

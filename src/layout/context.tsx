@@ -1,6 +1,6 @@
 import { useGetCompanyList, useGetRoleAll, useLogin } from '@/hooks'
 import type { Company, GetCompanyListRequest, RoleConfig, UseLoginResponse } from '@/types'
-import React, { createContext, useContext, useEffect, useMemo } from 'react'
+import React, { createContext, useContext, useMemo } from 'react'
 
 interface IProps extends UseLoginResponse {
   companylist: Company[]
@@ -28,10 +28,6 @@ const GlobalContext: React.FC = ({ children }) => {
     })
     return newCompanyMap
   }, [companylist])
-
-  useEffect(() => {
-    getRoleAll()
-  }, [])
 
   return (
     <GlobalContextCom.Provider

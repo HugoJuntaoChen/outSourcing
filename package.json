@@ -20,6 +20,7 @@
     "dayjs": "^1.11.9",
     "echarts": "^5.4.3",
     "esdk-obs-browserjs": "^3.23.5",
+    "jsencrypt": "^3.3.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "react": "^17.0.2",
