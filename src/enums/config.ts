@@ -12,7 +12,6 @@ export enum LevelEnums {
 }
 
 // 项目状态
-// 1.
 export enum DelayRiskEnums {
   'Pending' = 0,
   'DelayRisk' = 1,
@@ -133,4 +132,16 @@ export enum FacilityTypeEnums {
 export const FacilityTypeMap: Record<FacilityTypeEnums | any, string> = {
   [FacilityTypeEnums.CameraShooting]: '摄像设备',
   [FacilityTypeEnums.Lamplight]: '灯光设备'
+}
+
+export enum ResultFileEnum {
+  ResultFile = 'ResultFile', // 文案策划上传文件
+  TextLFile = 'TextLFile', // 导演拍摄文案终稿
+  ScriptFile = 'ScriptFile', // 脚本终稿
+  MaterialFile = 'MaterialFile', // 素材终稿
+  PureFile = 'PureFile', // 纯净版
+  UploadFile = 'UploadFile', // 交付版
+  ProjectFile = 'ProjectFile', // 工程文件
+  CompleteFile = 'CompleteFile', // 上传结算单
+  MoneyFile = 'MoneyFile', // 财务结算确认截图
 }

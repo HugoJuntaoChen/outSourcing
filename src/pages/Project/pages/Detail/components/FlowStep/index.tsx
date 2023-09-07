@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Button, Space, Steps } from 'antd'
+import { Button, Space, Steps, Typography } from 'antd'
 import { stepItems } from './config'
 import './index.less'
 import { IconStep } from '@/static/Icons'
@@ -7,16 +7,18 @@ import { Personnel, Copywriting, Director, Finance, Flaking } from './components
 import { useProjectDetailContext } from '../../context'
 import moment from 'moment'
 
+const { Text } = Typography
+
 const FlowStep = () => {
   const [current, setCurrent] = useState(0)
   const { data } = useProjectDetailContext()
 
   const logList = useMemo(() => {
-    const list = data?.[stepItems?.[current]?.stepKey]
+    const list = data?.[stepItems?.[current]?.stepKey]?.operation_log
     return Array.isArray(list)
       ? list?.map((item: any) => (
         {
-          title: item?.log,
+          title: <Text style={{ maxWidth: 200 }} ellipsis={{ tooltip: true }}>{item?.log ?? ''}</Text>,
           description: moment.unix(Number(item?.time)).format('YYYY-MM-DD HH:MM:ss'),
           icon: IconStep
         }
@@ -26,7 +28,7 @@ const FlowStep = () => {
 
   return (
     <div className='project-detail-flow-step-wrapper'>
-      <Steps className='steps' current={current} items={stepItems} />
+      <Steps className='steps' current={current} items={stepItems} onChange={setCurrent} />
 
       {current === 0 && <Personnel />}
       {current === 1 && <Copywriting />}

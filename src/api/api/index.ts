@@ -1,7 +1,3 @@
-import { baseGetRequest } from '../index'
-// TODO 用来测试
-export const testGet = async (url: string) => baseGetRequest(url)
-
 export { default as loginApi } from './login'
 export { default as personnelApi } from './personnel'
 export { default as teamApi } from './team'

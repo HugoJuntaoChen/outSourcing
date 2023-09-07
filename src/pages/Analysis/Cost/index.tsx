@@ -28,20 +28,20 @@ const Cost = () => {
     }
     data?.job_cost_data?.forEach(i => {
       newConfig.jobs.push(roleConfig?.map?.[i?.job_type])
-      newConfig.jobCost.push(i?.cost ?? 0)
-      newConfig.jobProduce.push(i?.produce ?? 0)
+      newConfig.jobCost.push((i?.cost ?? 0) / 100)
+      newConfig.jobProduce.push((i?.produce ?? 0) / 100)
     })
     data?.level_cost_data?.forEach(i => {
       newConfig.levels.push(LevelEnums?.[i?.level])
-      newConfig.levelCost.push(i?.cost ?? 0)
-      newConfig.levelProduce.push(i?.produce ?? 0)
+      newConfig.levelCost.push((i?.cost ?? 0) / 100)
+      newConfig.levelProduce.push((i?.produce ?? 0) / 100)
     })
     return newConfig
   }, [data, roleConfig])
 
   const onReload = (value: any) => {
-    const { timeRange, ...values } = value ?? {}
-    getAnalysisCost({ ...values, time_left_range: timeRange?.[0]?.unix(), time_right_range: timeRange?.[1]?.unix() })
+    const { timeRange, company_id: companyId } = value ?? {}
+    getAnalysisCost({ company_id: String(companyId), time_left_range: timeRange?.[0]?.unix(), time_right_range: timeRange?.[1]?.unix() })
   }
 
   useEffect(() => {

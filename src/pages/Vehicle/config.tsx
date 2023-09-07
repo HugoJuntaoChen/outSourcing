@@ -1,5 +1,6 @@
-import moment from 'moment'
 import type { ColumnsType } from 'antd/es/table'
+import { CustomItemEnum, CustomItemStrategy } from '@/config'
+
 export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '车辆类型',
@@ -31,6 +32,6 @@ export const columns: ColumnsType<Record<string, any>> = [
     dataIndex: 'CreatedAt',
     width: 240,
     sorter: (a, b) => new Date(a.UpdatedAt).valueOf() - new Date(b.UpdatedAt).valueOf(),
-    render: (val) => moment(new Date(val)).format('YYYY-MM-DD HH:MM')
+    render: (value: any) => CustomItemStrategy[CustomItemEnum.TimeStr]({ value })
   }
 ]

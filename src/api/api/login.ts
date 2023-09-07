@@ -1,6 +1,6 @@
-import { baseGetRequest } from '../index'
+import { basePostRequest } from '../index'
 
-// 登陆
+// 登录
 export default {
-  login: async (params: Record<string, any>) => baseGetRequest('/background/login', { data: params }) // 后台登录接口
+  login: async (params: Record<string, any>) => basePostRequest('/background/login', params) // 后台登录接口
 }
