@@ -40,8 +40,8 @@ const Schedule = () => {
   }, [data, roleConfig])
 
   const onReload = (value: any) => {
-    const { timeRange, ...values } = value ?? {}
-    getAnalysisSchedule({ ...values, time_left_range: timeRange?.[0]?.unix(), time_right_range: timeRange?.[1]?.unix() })
+    const { timeRange, company_id: companyId } = value ?? {}
+    getAnalysisSchedule({ company_id: String(companyId), time_left_range: timeRange?.[0]?.unix(), time_right_range: timeRange?.[1]?.unix() })
   }
 
   useEffect(() => {

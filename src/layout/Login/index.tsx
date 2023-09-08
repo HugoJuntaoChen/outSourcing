@@ -15,7 +15,7 @@ const Login = () => {
     try {
       const values: LoginRequest = await form.validateFields()
       await login(values)
-      message.success('登陆成功', 3)
+      message.success('登录成功', 3)
       history('/')
     } catch {
     }
@@ -29,7 +29,7 @@ const Login = () => {
           {IconTitle}
         </Space>
         <div className='title-wrapper'>
-          <div className='title'>登陆</div>
+          <div className='title'>登录</div>
           <div className='description'>在下面输入您的账号详细信息</div>
         </div>
         <div className='form-wrapper'>
@@ -41,9 +41,9 @@ const Login = () => {
             form={form}
           >
             <Form.Item
-              label="手机号"
+              label="用户名"
               name="user_name"
-              rules={[{ required: true, message: '请输入手机号' }]}
+              rules={[{ required: true, message: '请输入用户名' }]}
             >
               <Input />
             </Form.Item>
@@ -60,7 +60,7 @@ const Login = () => {
           </Form>
         </div>
         <Button loading={loading} type="primary" block onClick={() => { onRequest() }} >
-          登陆
+          登录
         </Button>
       </div>
     </div>

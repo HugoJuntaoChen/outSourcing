@@ -1,6 +1,8 @@
 import { DelayRisk, DelayRiskEnums, FieldMap, IdentityMap, LevelEnums } from '@/enums/config'
 import { getOptionOfEnum, getOptionOfMap } from '@/utils'
 import { Tag } from 'antd'
+import moment from 'moment'
+import { type ReactNode } from 'react'
 
 // 级别配置
 export const LevelOptions = getOptionOfEnum(LevelEnums)
@@ -142,3 +144,15 @@ export const IdentityOptions = getOptionOfMap(IdentityMap)
 // 车辆类型
 export const vehicleList = ['微型货车', '轻型货车', '中型货车', '重型货车', '轻型越野车', '中型越野车', '重型越野车', '超重型越野车', '轻型自卸车', '中型自卸车', '重型自卸车', '矿用自卸车', '半挂牵引车', '全挂牵引车', '箱式汽车', '罐式汽车', '起重举升车', '仓栅式车', '特种结构车', '专用自卸车', '微型客车', '轻型客车', '中型客车', '大型客车', '特大型客车', '微型轿车', '普通级轿车', '中级轿车', '中高级轿车', '高级轿车', '轻型半挂车', '中型半挂车', '重型半挂车', '超重半挂车']
 export const VehicleOptions = vehicleList.map(i => ({ label: i, value: i }))
+
+export enum CustomItemEnum {
+  Money = 'Money',
+  Time = 'Time',
+  TimeStr = 'TimeStr'
+}
+
+export const CustomItemStrategy: Record<CustomItemEnum, (record: { value?: any }) => ReactNode> = {
+  [CustomItemEnum.Money]: ({ value }) => value ? Number(value) / 100 : value,
+  [CustomItemEnum.Time]: ({ value }) => moment.unix(value ?? 0).format('YYYY-MM-DD HH:MM:SS'),
+  [CustomItemEnum.TimeStr]: ({ value }) => moment(new Date(value)).format('YYYY-MM-DD HH:MM:SS')
+}

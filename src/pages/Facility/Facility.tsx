@@ -27,12 +27,18 @@ const EquipmentCom: React.FC<IProps> = ({ inside = false }) => {
   }
 
   const viewFn = (record: Equipment) => {
-    setData(record)
+    setData({
+      ...record,
+      price_per_day: Number(record?.price_per_day) / 100
+    })
     setMessageVisible(true)
   }
 
   const editFn = (record?: Equipment) => {
-    setData(record)
+    setData({
+      ...record,
+      price_per_day: Number(record?.price_per_day) / 100
+    })
     setFormVisible(true)
   }
 
@@ -98,7 +104,7 @@ const EquipmentCom: React.FC<IProps> = ({ inside = false }) => {
           { label: '设备型号', value: data?.equipment_model },
           { label: '设备编号', value: data?.serial_number },
           { label: '设备个数', value: data?.quantity },
-          { label: '单价/天', value: data?.price_per_day }
+          { label: '单价(元)/天', value: data?.price_per_day }
         ]}
         onCancel={() => { setMessageVisible(false) }}
       />

@@ -1,7 +1,7 @@
-import moment from 'moment'
 import type { ColumnsType } from 'antd/es/table'
 import { EComponentType } from '@/enums'
 import type { IFormItemProps } from '@/components/type'
+import { CustomItemEnum, CustomItemStrategy } from '@/config'
 
 export const forms: IFormItemProps[] = [
   {
@@ -28,14 +28,6 @@ export const forms: IFormItemProps[] = [
       style: { width: 200 }
     }
   }
-  // {
-  //   type: EComponentType.Input,
-  //   key: '4',
-  //   props: {
-  //     placeholder: '请输入姓名',
-  //     style: { width: 200 }
-  //   }
-  // }
 ]
 
 export const columns: ColumnsType<Record<string, any>> = [
@@ -55,9 +47,10 @@ export const columns: ColumnsType<Record<string, any>> = [
     width: 180
   },
   {
-    title: '单价/天',
+    title: '单价(元)/天',
     dataIndex: 'price_per_day',
-    width: 100
+    width: 100,
+    render: (value: any) => CustomItemStrategy[CustomItemEnum.Money]({ value })
   },
   {
     title: '个数',
@@ -69,6 +62,6 @@ export const columns: ColumnsType<Record<string, any>> = [
     dataIndex: 'registration_date',
     width: 240,
     sorter: (a, b) => new Date(a.UpdatedAt).valueOf() - new Date(b.UpdatedAt).valueOf(),
-    render: (val) => moment(new Date(val)).format('YYYY-MM-DD HH:MM')
+    render: (value: any) => CustomItemStrategy[CustomItemEnum.TimeStr]({ value })
   }
 ]

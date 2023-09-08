@@ -1,8 +1,7 @@
-import moment from 'moment'
 import type { ColumnsType } from 'antd/es/table'
 import { EComponentType } from '@/enums'
 import type { IFormItemProps } from '@/components/type'
-import { DelayRiskIcon } from '@/config'
+import { CustomItemEnum, CustomItemStrategy, DelayRiskIcon } from '@/config'
 
 export const forms: IFormItemProps[] = [
   {
@@ -74,9 +73,10 @@ export const columns: ColumnsType<Record<string, any>> = [
     width: 140
   },
   {
-    title: '预算',
+    title: '预算(元)',
     dataIndex: 'budget',
-    width: 100
+    width: 100,
+    render: (value: any) => CustomItemStrategy[CustomItemEnum.Money]({ value })
   },
   {
     title: '地点',
@@ -88,6 +88,6 @@ export const columns: ColumnsType<Record<string, any>> = [
     dataIndex: 'delivery_time',
     width: 180,
     sorter: (a, b) => new Date(a.delivery_time).valueOf() - new Date(b.delivery_time).valueOf(),
-    render: (val) => moment(new Date(val)).format('YYYY-MM-DD HH:MM:SS')
+    render: (value: any) => CustomItemStrategy[CustomItemEnum.TimeStr]({ value })
   }
 ]
