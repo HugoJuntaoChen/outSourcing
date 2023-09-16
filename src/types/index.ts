@@ -12,3 +12,13 @@ export interface PageProps {
   pageSize: number
   total?: number
 }
+
+export interface File {
+  uid?: string
+  url?: string
+  percent?: number
+  status?: string
+  name?: any
+}
+
+export type onOkCallbackByFile = (I: File) => void

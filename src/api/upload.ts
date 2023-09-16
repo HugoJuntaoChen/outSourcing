@@ -8,20 +8,30 @@ export const obsClient = new ObsClient({
 })
 
 interface UpdateFileProps {
-  name: string
-  file: any
+  data?: {
+    Key: string
+    SourceFile: any
+  }
+  onSucess?: (data?: any) => void
+  onError?: (data?: any) => void
+  progressCallback?: (data?: { speed: number, percent: number }) => void
 }
 
-export const updateFile = async ({ name, file }: UpdateFileProps) => {
+export const updateFile = async ({ data, onSucess, onError, progressCallback }: UpdateFileProps) => {
   obsClient.putObject({
     Bucket: 'media-bixi',
-    Key: name,
-    SourceFile: file // localfile为待上传的本地文件路径，需要指定到具体的文件名
-  }, (err: string, result: any) => {
-    if (err) {
-      console.error('Error-->' + err)
-    } else {
-      console.log(result)
-    }
+    ProgressCallback: (transferredAmount: number, totalAmount: number, totalSeconds: number) => {
+      // 获取上传平均速率（KB/S）
+      const speed = transferredAmount * 1.0 / totalSeconds / 1024
+      // 获取上传进度百分比
+      const percent = transferredAmount * 100.0 / totalAmount
+
+      progressCallback?.({ speed, percent })
+    },
+    ...data
+  }).then((result: any) => {
+    onSucess?.(result)
+  }).catch((error: any) => {
+    onError?.(error)
   })
 }

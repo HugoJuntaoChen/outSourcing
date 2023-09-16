@@ -37,7 +37,7 @@ export const columns: ColumnsType<Record<string, any>> = [
     width: 220
   },
   {
-    title: '营业执照',
+    title: '营业执照号',
     dataIndex: 'unified_credit_code',
     width: 180,
     render: (text) => <EncipherText text={text} />

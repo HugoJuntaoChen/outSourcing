@@ -28,13 +28,13 @@ const Cost = () => {
     }
     data?.job_cost_data?.forEach(i => {
       newConfig.jobs.push(roleConfig?.map?.[i?.job_type])
-      newConfig.jobCost.push((i?.cost ?? 0) / 100)
-      newConfig.jobProduce.push((i?.produce ?? 0) / 100)
+      newConfig.jobCost.push((i?.cost ?? 0) / 100 / 1000)
+      newConfig.jobProduce.push((i?.produce ?? 0) / 100 / 1000)
     })
     data?.level_cost_data?.forEach(i => {
       newConfig.levels.push(LevelEnums?.[i?.level])
-      newConfig.levelCost.push((i?.cost ?? 0) / 100)
-      newConfig.levelProduce.push((i?.produce ?? 0) / 100)
+      newConfig.levelCost.push((i?.cost ?? 0) / 100 / 1000)
+      newConfig.levelProduce.push((i?.produce ?? 0) / 100 / 1000)
     })
     return newConfig
   }, [data, roleConfig])
@@ -98,6 +98,7 @@ const Cost = () => {
                 <Bar
                   id='cost-job'
                   title='岗位数据'
+                  unit='k'
                   options={{
                     series: [
                       {
@@ -126,6 +127,12 @@ const Cost = () => {
                     xAxis: {
                       type: 'category',
                       data: jobs
+                    },
+                    yAxis: {
+                      type: 'value',
+                      axisLabel: {
+                        formatter: '{value}k'
+                      }
                     }
                   }}
                 />
@@ -147,6 +154,7 @@ const Cost = () => {
                   <Bar
                     id='cost-level'
                     title='级别数据'
+                    unit='k'
                     options={{
                       series: [
                         {
@@ -175,6 +183,12 @@ const Cost = () => {
                       xAxis: {
                         type: 'category',
                         data: levels
+                      },
+                      yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                          formatter: '{value}k'
+                        }
                       }
                     }}
                   />

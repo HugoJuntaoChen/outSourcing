@@ -45,9 +45,15 @@ const EquipmentCom: React.FC<IProps> = ({ inside = false }) => {
   const deleteFn = async (record: Equipment) => equipmentApi.deleteEquipment({ id: record?.ID })
 
   const handleSubmit = async (values: Equipment) => {
+    const { price_per_day: pricePerDay, ...params } = values ?? {}
     setUpdateLoading(true)
     try {
-      await equipmentApi.updateEquipment({ ...values, inside, id: data?.ID })
+      await equipmentApi.updateEquipment({
+        ...params,
+        price_per_day: pricePerDay ? pricePerDay * 100 : undefined,
+        inside,
+        id: data?.ID
+      })
       setFormVisible(false)
       message.success('操作成功')
       onReload()

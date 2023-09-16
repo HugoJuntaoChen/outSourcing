@@ -11,7 +11,7 @@ import { personnelApi } from '@/api'
 
 import type { Worker } from '@/types'
 import { useGlobalContext } from '@/layout/context'
-import { LevelEnums } from '@/enums/config'
+import { FieldMap, LevelEnums } from '@/enums/config'
 
 interface IProps {
   inside?: boolean
@@ -108,11 +108,15 @@ const Personnel: React.FC<IProps> = ({ inside = false }) => {
           { label: '姓名', value: data?.name },
           { label: '公司', value: companyNameMap[data?.company] },
           { label: '所属团队', value: data?.department },
-          { label: '角色', value: data?.role },
+
+          { label: '角色', value: roleConfig?.map?.[data?.role] ?? data?.role },
           { label: '身份证', value: data?.id_card },
-          { label: '级别', value: LevelEnums[data?.level] },
           { label: '手机号', value: data?.phone_number },
-          { label: '银行卡', value: `${data?.bank_branch}  ${data?.bank_account}`, span: 16 },
+
+          { label: '级别', value: LevelEnums[data?.level] },
+          { label: '视频领域', value: data?.field?.map((key: any) => FieldMap[key])?.join('、'), span: 16 },
+
+          { label: '银行卡', value: `${data?.bank_branch}  ${data?.bank_account}`, span: 24 },
           { label: '紧急联系人', value: data?.emergency_contact_name },
           { label: '联系人电话', value: data?.emergency_contact_phone, span: 16 }
         ]}

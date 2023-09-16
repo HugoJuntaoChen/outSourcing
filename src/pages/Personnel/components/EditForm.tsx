@@ -51,13 +51,19 @@ const multipleForms: IFormProps['multipleForms'] = [
       props: { options: LevelOptions, placeholder: '请选择级别' }
     },
     {
+      type: EComponentType.FieldSelect,
+      label: '视频领域',
+      key: 'field',
+      props: { placeholder: '请选择视频领域', mode: 'multiple' }
+    }
+  ],
+  [
+    {
       type: EComponentType.Input,
       label: '身份证',
       key: 'id_card',
       props: { placeholder: '请输入身份证' }
-    }
-  ],
-  [
+    },
     {
       type: EComponentType.Input,
       label: '手机号',

@@ -1,8 +1,10 @@
 
 import React, { useMemo } from 'react'
 import { useProjectDetailContext } from '../../../../context'
-import { Descriptions, Empty, Space } from 'antd'
-import { FileView } from '@/components'
+import { Descriptions } from 'antd'
+import { ProjectUpload } from '../../..'
+import { ResultFileEnum } from '@/enums/config'
+import { uploadConfig } from '@/config'
 const Flaking: React.FC = () => {
   const { data } = useProjectDetailContext()
 
@@ -12,37 +14,53 @@ const Flaking: React.FC = () => {
     <div className='project-detail-step-wrapper'>
       <Descriptions>
         <Descriptions.Item label="纯净版">
-          <Space direction='vertical' style={{ width: '100%' }}>
-            {info?.pure_file?.length
-              ? (
-                  info?.pure_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
-              : <Empty description='暂未上传' style={{ width: 80 }} />
-            }
-          </Space>
+          <ProjectUpload
+            value={info?.pure_file?.map((item: any) => ({
+              uid: item?.link,
+              name: item?.file_name,
+              url: item?.link,
+              thumbUrl: item?.link
+            }))}
+            scene={ResultFileEnum.PureFile}
+             {...uploadConfig.all}
+          />
         </Descriptions.Item>
         <Descriptions.Item label="交付版">
-          <Space direction='vertical' style={{ width: '100%' }}>
-            {info?.upload_file?.length
-              ? (
-                  info?.upload_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
-              : <Empty description='暂未上传' style={{ width: 80 }} />
-            }
-          </Space>
+          <ProjectUpload
+            value={info?.upload_file?.map((item: any) => ({
+              uid: item?.link,
+              name: item?.file_name,
+              url: item?.link,
+              thumbUrl: item?.link
+            }))}
+            scene={ResultFileEnum.UploadFile}
+             {...uploadConfig.all}
+          />
         </Descriptions.Item>
         <Descriptions.Item label="工程文件">
-          <Space direction='vertical' style={{ width: '100%' }}>
-            {info?.project_file?.length
-              ? (
-                  info?.upload_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
-              : <Empty description='暂未上传' style={{ width: 80 }} />
-            }
-          </Space>
+          <ProjectUpload
+            value={info?.project_file?.map((item: any) => ({
+              uid: item?.link,
+              name: item?.file_name,
+              url: item?.link,
+              thumbUrl: item?.link
+            }))}
+            scene={ResultFileEnum.ProjectFile}
+            {...uploadConfig.all}
+          />
         </Descriptions.Item>
-        {/* <Descriptions.Item label="结算单">
-          <Space direction='vertical' style={{ width: '100%' }}>
-            {info?.complete_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />)}
-          </Space>
-        </Descriptions.Item> */}
+        <Descriptions.Item label="上传结算单" span={1}>
+          <ProjectUpload
+            value={info?.complete_file?.map((item: any) => ({
+              uid: item?.link,
+              name: item?.file_name,
+              url: item?.link,
+              thumbUrl: item?.link
+            }))}
+            scene={ResultFileEnum.CompleteFile}
+            {...uploadConfig.default}
+          />
+        </Descriptions.Item>
       </Descriptions>
     </div>
   )

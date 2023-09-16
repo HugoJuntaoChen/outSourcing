@@ -156,3 +156,22 @@ export const CustomItemStrategy: Record<CustomItemEnum, (record: { value?: any }
   [CustomItemEnum.Time]: ({ value }) => moment.unix(value ?? 0).format('YYYY-MM-DD HH:MM:SS'),
   [CustomItemEnum.TimeStr]: ({ value }) => moment(new Date(value)).format('YYYY-MM-DD HH:MM:SS')
 }
+
+// 部门
+export const DepartmentOption = ['总经办', '市场部', '行政人事部', '财务部', '策划部', '导演部', '摄像部', '后期部', '技术部'].map(i => ({ label: i, value: i }))
+
+// 上传
+export const uploadConfig = {
+  default: {
+    hint: '支持格式：pdf，word，excel，png，jpg，单个文件大小不超过100MB。',
+    accept: '.jpg, .jpeg, .png, .pdf, .word, .excel',
+    maxSize: 100
+  },
+  all: {
+    hint: '支持格式：mp4、mov、ae、pr、会声会影、eduis、3D、Vegas、FCPX，单个文件大小不超过500MB。',
+    maxSize: 500
+  },
+  img: {
+    accept: '.jpg, .jpeg, .png, .pdf'
+  }
+}

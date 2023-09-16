@@ -111,9 +111,11 @@ const Team: React.FC<Props> = ({ inside = false }) => {
           { label: '级别', value: LevelEnums[data?.level] },
           { label: '地址', value: `${data?.province ?? ''}${data?.city ?? ''}` },
           { label: '详细地址', value: data?.address },
-          { label: '开户银行', value: data?.bank_name },
-          { label: '银行帐号', value: data?.bank_account },
+          { label: '联系人', value: data?.contactor },
+          { label: '联系方式', value: data?.phone_number },
           { label: '视频领域', value: data?.field?.map((key: any) => FieldMap[key])?.join('、') },
+          { label: '开户银行', value: data?.bank_name },
+          { label: '银行帐号', value: data?.bank_account, span: 16 },
           { label: '营业执照号', value: data?.unified_credit_code, span: 24 },
           {
             label: '营业执照',

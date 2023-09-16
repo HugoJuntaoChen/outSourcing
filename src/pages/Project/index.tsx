@@ -11,7 +11,14 @@ const Project: React.FC = () => {
   const { pagination, list, loading, getProjectList } = useGetProjectList()
 
   const onReload = (params?: Record<string, any>) => {
-    getProjectList({ ...formRef.current?.getFieldsValue(), current: 1, ...params })
+    const { min_budget: min, max_budget: max, ...values } = params ?? {}
+    getProjectList({
+      ...formRef.current?.getFieldsValue(),
+      current: 1,
+      ...values,
+      min_budget: min ? min * 100 : undefined,
+      max_budget: max ? max * 100 : undefined
+    })
   }
 
   useEffect(() => {
@@ -45,7 +52,7 @@ const Project: React.FC = () => {
                   history(`/project/${record?.ID}`)
                 }}
                 size='small'
-                style={{ color: '#FF6624' }}
+                style={{ color: '#FF6624', marginLeft: -7 }}
                 type="text"
               >
                 查看

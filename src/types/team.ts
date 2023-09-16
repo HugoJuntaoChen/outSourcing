@@ -21,6 +21,8 @@ export interface Company {
   level?: LevelEnums
   bank_account?: string
   field: FieldEnums[]
+  phone_number?: string
+  contactor?: string
 }
 
 export interface GetCompanyListResponse {

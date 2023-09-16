@@ -59,6 +59,20 @@ const multipleForms: IFormProps['multipleForms'] = [
   ],
   [
     {
+      type: EComponentType.Input,
+      label: '联系人',
+      key: 'contactor',
+      props: { placeholder: '请输入联系人' }
+    },
+    {
+      type: EComponentType.Input,
+      label: '联系方式',
+      key: 'phone_number',
+      props: { placeholder: '请输入联系方式' }
+    }
+  ],
+  [
+    {
       type: EComponentType.BankSelect,
       label: '开户银行',
       key: 'bank_name',

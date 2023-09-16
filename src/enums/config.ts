@@ -136,7 +136,7 @@ export const FacilityTypeMap: Record<FacilityTypeEnums | any, string> = {
 
 export enum ResultFileEnum {
   ResultFile = 'ResultFile', // 文案策划上传文件
-  TextLFile = 'TextLFile', // 导演拍摄文案终稿
+  TextFile = 'TextFile', // 导演拍摄文案终稿
   ScriptFile = 'ScriptFile', // 脚本终稿
   MaterialFile = 'MaterialFile', // 素材终稿
   PureFile = 'PureFile', // 纯净版

@@ -15,7 +15,7 @@ const getRoutes = (data: RouteItemProps[]): any => {
     if (children?.length) {
       return getRoutes(children)
     } else if (Element) {
-      return <Route {...route} element={<Element />} key={index} />
+      return <Route {...route} element={<Element />} key={`${index}-${route.path}`} />
     }
   })
 }
@@ -25,7 +25,7 @@ const Content = () => {
 
   useEffect(() => {
     token && getRoleAll()
-  }, [])
+  }, [token])
 
   if (!token) {
     return <Login />

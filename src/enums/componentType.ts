@@ -16,5 +16,7 @@ export enum EComponentType {
   DelayRiskSelect = 'DelayRiskSelect',
   IdentitySelect = 'IdentitySelect',
   VehicleSelect = 'VehicleSelect',
-  Upload = 'Upload'
+  Upload = 'Upload',
+  DepartmentSelect = 'DepartmentSelect',
+  Password = 'Password'
 }

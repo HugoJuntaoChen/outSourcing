@@ -1,7 +1,7 @@
 import { projectApi } from '@/api'
 import { useState } from 'react'
 import { pick } from 'lodash'
-import type { Project, GetProjectListRequest, GetProjectListResponse, PageProps } from '@/types'
+import type { Project, GetProjectListRequest, GetProjectListResponse, PageProps, ProjectFile } from '@/types'
 
 export const useGetProjectList = () => {
   const [pagination, setPagination] = useState<PageProps>({
@@ -48,4 +48,33 @@ export const useGetProjectDetail = () => {
   }
 
   return { data, loading, getProjectDetail }
+}
+
+export const useUpdateProjectFile = () => {
+  const [uploadLoading, setUploadLoading] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
+
+  const uploadProjectFile = async (data?: ProjectFile) => {
+    setUploadLoading(true)
+    try {
+      await projectApi.uploadProjectFile(data)
+    } catch (error) {
+      throw new Error()
+    } finally {
+      setUploadLoading(false)
+    }
+  }
+
+  const deleteProjectFile = async (data?: ProjectFile) => {
+    setDeleteLoading(true)
+    try {
+      await projectApi.deleteProjectFile(data)
+    } catch (error) {
+      throw new Error()
+    } finally {
+      setDeleteLoading(false)
+    }
+  }
+
+  return { uploadLoading, deleteLoading, uploadProjectFile, deleteProjectFile }
 }
