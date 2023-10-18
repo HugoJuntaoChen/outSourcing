@@ -3,7 +3,7 @@ import { IFormTable, IMessage, IFormTableOperation, SearchWrapper } from '@/comp
 import { columns, forms } from './config'
 import { useGetCompanyList } from '@/hooks'
 import { message, type FormInstance, Button, Image, Empty } from 'antd'
-import type { Company } from '@/types'
+import type { Avatar, Company } from '@/types'
 import { teamApi } from '@/api'
 import EditForm from './components/EditForm'
 import { PlusOutlined } from '@ant-design/icons'
@@ -36,22 +36,36 @@ const Team: React.FC<Props> = ({ inside = false }) => {
   }
 
   const editFn = (record?: Company) => {
-    const { province, city, business_license: businessLicense } = record ?? {}
+    const { province, city, business_license: businessLicense, avatar_link: avatarLink } = record ?? {}
     setData({
       ...record,
       provinceCity: province && city ? [province, city] : [],
-      business_license: businessLicense ? [{ url: businessLicense, uid: 1 }] : []
+      business_license: businessLicense ? [{ url: businessLicense, uid: 1 }] : [],
+      avatar_link: avatarLink ? [{ url: avatarLink, uid: 1 }] : []
     })
     setFormVisible(true)
   }
 
   const deleteFn = async (record: Company) => teamApi.deleteCompany({ id: record?.ID })
 
-  const handleSubmit = async (values: Company & { provinceCity: string[], business_license: Array<{ url: string, uid: string }> }) => {
-    const { provinceCity, business_license: businessLicense, ...params } = values
+  const handleSubmit = async (values: Company & { provinceCity: string[], business_license: Avatar[], avatar_link: Avatar[] }) => {
+    const {
+      provinceCity,
+      business_license: businessLicense,
+      avatar_link: avatarLink,
+      ...params
+    } = values
     setUpdateLoading(true)
     try {
-      await teamApi.updateCompany({ ...params, province: provinceCity?.[0], city: provinceCity?.[1], business_license: businessLicense?.[0]?.url, inside, id: data?.ID })
+      await teamApi.updateCompany({
+        ...params,
+        province: provinceCity?.[0],
+        city: provinceCity?.[1],
+        business_license: businessLicense?.[0]?.url,
+        avatar_link: avatarLink?.[0]?.url,
+        inside,
+        id: data?.ID
+      })
       setFormVisible(false)
       message.success('操作成功')
       onReload()
@@ -122,6 +136,13 @@ const Team: React.FC<Props> = ({ inside = false }) => {
             span: 24,
             value: (
               data?.business_license ? <Image src={data?.business_license} width={100}/> : <Empty description='暂未上传' imageStyle={{ width: 80 }} />
+            )
+          },
+          {
+            label: '公司头像',
+            span: 24,
+            value: (
+              data?.avatar_link ? <Image src={data?.avatar_link} width={100}/> : <Empty description='暂未上传' imageStyle={{ width: 80 }} />
             )
           }
         ]}

@@ -22,3 +22,5 @@ export interface File {
 }
 
 export type onOkCallbackByFile = (I: File) => void
+
+export interface Avatar { url: string, uid: string }

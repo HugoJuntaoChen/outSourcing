@@ -69,7 +69,7 @@ const Vehicle: React.FC<IProps> = ({ inside = false }) => {
     title: '操作',
     width: 180,
     dataIndex: 'operation',
-    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload, nameKey: 'type' })
+    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload, text: record?.number })
   }]), [])
 
   useEffect(() => {

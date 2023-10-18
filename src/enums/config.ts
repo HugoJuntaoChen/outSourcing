@@ -113,16 +113,14 @@ export enum IdentityEnums {
   DepartmentHead = 2,
   ProducerHead = 3,
   FinanceManager = 4,
-  CEO = 5,
-  Client = 20,
+  CEO = 5
 }
 export const IdentityMap: Record<IdentityEnums | any, string> = {
   [IdentityEnums.ProjectManager]: '项目经理',
   [IdentityEnums.DepartmentHead]: '部门领导',
   [IdentityEnums.ProducerHead]: '内容负责人',
-  [IdentityEnums.FinanceManager]: '辅材',
-  [IdentityEnums.CEO]: '老板',
-  [IdentityEnums.Client]: '顾客'
+  [IdentityEnums.FinanceManager]: '财务',
+  [IdentityEnums.CEO]: '老板'
 }
 
 export enum FacilityTypeEnums {

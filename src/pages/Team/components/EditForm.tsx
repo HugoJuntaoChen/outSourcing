@@ -114,6 +114,22 @@ const multipleForms: IFormProps['multipleForms'] = [
         hint: 'Only pdf, png, jpg can be uploaded, and the size doe:100MB'
       }
     }
+  ],
+  [
+    {
+      type: EComponentType.Upload,
+      label: '公司头像',
+      key: 'avatar_link',
+      rowConfig: { span: 24 },
+      labelCol: { span: 3 },
+      rules: [],
+      props: {
+        maxCount: 1,
+        placeholder: '请上传公司头像',
+        accept: '.jpg, .jpeg, .png, .pdf',
+        hint: 'Only pdf, png, jpg can be uploaded, and the size doe:100MB'
+      }
+    }
   ]
 ].map(arr => arr.map((config: any) => ({
   rules: [{ required: true, message: config?.props?.placeholder }],

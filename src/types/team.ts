@@ -23,6 +23,7 @@ export interface Company {
   field: FieldEnums[]
   phone_number?: string
   contactor?: string
+  avatar_link?: string
 }
 
 export interface GetCompanyListResponse {

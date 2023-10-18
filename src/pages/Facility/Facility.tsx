@@ -7,6 +7,7 @@ import { type Equipment } from '@/types'
 import { equipmentApi } from '@/api'
 import { PlusOutlined } from '@ant-design/icons'
 import FacilityEditForm from './components/EditForm'
+import { useGlobalContext } from '@/layout/context'
 
 interface IProps {
   inside?: boolean
@@ -14,6 +15,7 @@ interface IProps {
 
 const EquipmentCom: React.FC<IProps> = ({ inside = false }) => {
   const formRef = useRef<FormInstance<any>>()
+  const { equipmentTypeConfig } = useGlobalContext()
 
   const [formVisible, setFormVisible] = useState(false)
   const [messageVisible, setMessageVisible] = useState(false)
@@ -68,7 +70,7 @@ const EquipmentCom: React.FC<IProps> = ({ inside = false }) => {
     title: '操作',
     width: 180,
     dataIndex: 'operation',
-    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload, nameKey: 'type' })
+    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload, text: record?.equipment_model })
   }]), [])
 
   useEffect(() => {
@@ -92,7 +94,7 @@ const EquipmentCom: React.FC<IProps> = ({ inside = false }) => {
         }}
         table={{
           columns: tableColumns,
-          dataSource: list || [],
+          dataSource: list?.map(i => ({ ...i, equipmentTypeConfig })) || [],
           loading,
           pagination: {
             ...pagination,
@@ -106,7 +108,7 @@ const EquipmentCom: React.FC<IProps> = ({ inside = false }) => {
       <IMessage
         visible={messageVisible}
         data={[
-          { label: '设备类型', value: data?.type },
+          { label: '设备类型', value: equipmentTypeConfig?.map[data?.type] },
           { label: '设备型号', value: data?.equipment_model },
           { label: '设备编号', value: data?.serial_number },
           { label: '设备个数', value: data?.quantity },

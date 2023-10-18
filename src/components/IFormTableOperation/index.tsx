@@ -9,10 +9,11 @@ interface IProps {
   record?: Record<string, any>
   onReload?: (params?: Record<string, any>) => Promise<void>
   nameKey?: string
+  text?: string
 }
 
 export default function IFormTableOperation (props: IProps) {
-  const { record, onReload, editFn, viewFn, deleteFn, nameKey } = props
+  const { record, onReload, editFn, viewFn, deleteFn, nameKey, text } = props
   return (
     <div className={'table-operation-flex'} key={record?.id}>
       <Button
@@ -37,7 +38,7 @@ export default function IFormTableOperation (props: IProps) {
       </Button>
       <Protal
         type={ProtalTypeEnum.DELETE}
-        title={`确认删除${record?.[nameKey ?? 'name']}?`}
+        title={`确认删除${text ?? record?.[nameKey ?? 'name']}?`}
         onOk={async () => deleteFn?.(record)}
         onReload={onReload}
       />

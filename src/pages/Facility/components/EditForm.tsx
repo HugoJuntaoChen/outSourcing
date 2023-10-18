@@ -16,10 +16,10 @@ interface IProps {
 const multipleForms: IFormProps['multipleForms'] = [
   [
     {
-      type: EComponentType.Input,
+      type: EComponentType.EquipmentSelect,
       label: '设备类型',
       key: 'type',
-      props: { placeholder: '请输入设备类型' }
+      props: { placeholder: '请选择设备类型' }
     },
     {
       type: EComponentType.Input,

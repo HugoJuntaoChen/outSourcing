@@ -1,5 +1,5 @@
 import { loginApi } from '@/api'
-import type { LogOutType, LoginResponse, LoginType, UseLoginResponse } from '@/types'
+import type { LogOutType, LoginResponse, LoginType, UseLoginResponse, UserInfo, VerifyJwtTokenResponse } from '@/types'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 import JSEncrypt from 'jsencrypt'
@@ -25,6 +25,20 @@ export const useLogin = (): UseLoginResponse => {
   const currentTime = moment().valueOf()
   const [token, setToken] = useState('')
   const [loading, setLoading] = useState(false)
+  const [verifyLoading, setVerifyLoading] = useState(false)
+  const [userInfo, setUserInfo] = useState<UserInfo>({})
+
+  const verifyJwtToken = async () => {
+    setVerifyLoading(true)
+    try {
+      const result: VerifyJwtTokenResponse = await loginApi.verifyJwtToken()
+      setUserInfo(result?.data ?? {})
+    } catch (error) {
+      throw await error
+    } finally {
+      setVerifyLoading(false)
+    }
+  }
 
   const login: LoginType = async (params) => {
     setLoading(true)
@@ -54,7 +68,7 @@ export const useLogin = (): UseLoginResponse => {
     localStorage.removeItem(tokenKey)
   }
 
-  useEffect(() => {
+  const init = async () => {
     if (jwtToken?.expires && currentTime > Number(jwtToken?.expires) && btoaPassword) {
     // 1. token无效，并且本地缓存过账号信息则重新发一次请求
       login({
@@ -63,9 +77,16 @@ export const useLogin = (): UseLoginResponse => {
       })
     } else if (jwtToken?.value && currentTime < Number(jwtToken?.expires)) {
     // 2.token有效，则直接用当前token
-      setToken(jwtToken?.value)
+      try {
+        await verifyJwtToken()
+        setToken(jwtToken?.value)
+      } catch (error) {}
     }
+  }
+
+  useEffect(() => {
+    init()
   }, [])
 
-  return { login, logOut, loading, token }
+  return { login, logOut, loading, token, userInfo, verifyLoading }
 }

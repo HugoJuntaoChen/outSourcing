@@ -35,6 +35,10 @@ baseRequest.interceptors.response.use(async response => {
     message.error({
       content: data?.msg
     })
+    if (Number(data.code) === 412) {
+      localStorage.removeItem(tokenKey)
+      window.location.href = `${window.location.origin}/login`
+    }
     return Promise.reject(data)
   }
 }, async function (error: AxiosError) {

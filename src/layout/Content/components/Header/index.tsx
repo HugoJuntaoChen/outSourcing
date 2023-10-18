@@ -10,14 +10,13 @@ import { Button, Popover, Space } from 'antd'
 import { useGlobalContext } from '@/layout/context'
 
 const Header = () => {
-  const { logOut } = useGlobalContext()
-
+  const { logOut, userInfo } = useGlobalContext()
   return (
     <div className="root-header">
       <div className="root-header-left">
         {IconBase}
         {IconTitle}
-        <div>后台管理系统</div>
+        <div className='title'>后台管理系统</div>
       </div>
       <div className="root-header-right">
         <Space size={24}>
@@ -49,7 +48,7 @@ const Header = () => {
               </Button>
             )}
           >
-            <div className='user-icon' />
+            <div className='user-icon' style={userInfo.avatar_link ? { backgroundImage: `url(${userInfo.avatar_link})` } : {}} />
           </Popover>
         </Space>
       </div>

@@ -18,5 +18,6 @@ export enum EComponentType {
   VehicleSelect = 'VehicleSelect',
   Upload = 'Upload',
   DepartmentSelect = 'DepartmentSelect',
-  Password = 'Password'
+  Password = 'Password',
+  EquipmentSelect = 'EquipmentSelect'
 }

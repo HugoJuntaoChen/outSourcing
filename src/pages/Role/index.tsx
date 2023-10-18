@@ -52,7 +52,7 @@ const Role: React.FC = () => {
     title: '操作',
     width: 180,
     dataIndex: 'operation',
-    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload, nameKey: 'type' })
+    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload })
   }]), [])
 
   useEffect(() => {
