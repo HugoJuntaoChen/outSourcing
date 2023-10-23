@@ -1,7 +1,10 @@
 import React from 'react'
-import { Descriptions, Empty, Image } from 'antd'
+import { Descriptions } from 'antd'
 
 import { useProjectDetailContext } from '../../../../context'
+import { ProjectUpload } from '../../..'
+import { ResultFileEnum } from '@/enums/config'
+import { uploadConfig } from '@/config'
 
 const Finance: React.FC = () => {
   const { data } = useProjectDetailContext()
@@ -10,18 +13,17 @@ const Finance: React.FC = () => {
     <div>
       <Descriptions>
         <Descriptions.Item label="财务结算截图" labelStyle={{ width: 120, textAlign: 'right', display: 'block' }} span={3}>
-          {data?.money_plan?.money_file?.length
-            ? (
-                data?.money_plan?.money_file?.map((item: any, i: any) => (
-                  <Image
-                    width={100}
-                    key={i}
-                    src={item?.link}
-                  />
-                ))
-              )
-            : <Empty description='暂未上传' imageStyle={{ width: 80 }} />}
-
+          <ProjectUpload
+            value={data?.money_plan?.money_file?.map((item: any) => ({
+              uid: item?.link,
+              name: item?.file_name,
+              url: item?.link,
+              thumbUrl: item?.link
+            })) ?? []}
+            scene={ResultFileEnum.MoneyFile}
+            type='Upload'
+            {...uploadConfig.img}
+          />
         </Descriptions.Item>
       </Descriptions>
     </div>

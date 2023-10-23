@@ -36,7 +36,7 @@ const multipleForms: IFormProps['multipleForms'] = [
       props: { placeholder: '请输入帐户名' }
     },
     {
-      type: EComponentType.Input,
+      type: EComponentType.Password,
       label: '角色密码',
       key: 'password',
       props: { placeholder: '请输入角色密码' }
@@ -44,10 +44,10 @@ const multipleForms: IFormProps['multipleForms'] = [
   ],
   [
     {
-      type: EComponentType.Input,
-      label: '部门负责人',
+      type: EComponentType.DepartmentSelect,
+      label: '所属部门',
       key: 'department_owner',
-      props: { placeholder: '请输入部门负责人' }
+      props: { placeholder: '请选择所属部门' }
     },
     {
       type: EComponentType.Input,

@@ -5,10 +5,10 @@ import { CustomItemEnum, CustomItemStrategy } from '@/config'
 
 export const forms: IFormItemProps[] = [
   {
-    type: EComponentType.Input,
+    type: EComponentType.EquipmentSelect,
     key: 'type',
     props: {
-      placeholder: '请输入设备类型',
+      placeholder: '请选择设备类型',
       style: { width: 200 }
     }
   },
@@ -34,7 +34,8 @@ export const columns: ColumnsType<Record<string, any>> = [
   {
     title: '设备类型',
     dataIndex: 'type',
-    width: 180
+    width: 180,
+    render: (value, { equipmentTypeConfig }) => equipmentTypeConfig?.map?.[value]
   },
   {
     title: '设备型号',

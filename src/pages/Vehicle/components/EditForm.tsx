@@ -45,7 +45,7 @@ const multipleForms: IFormProps['multipleForms'] = [
   [
     {
       type: EComponentType.InputNumber,
-      label: '单价/天',
+      label: '单价(元)/天',
       key: 'price_per_day',
       props: { placeholder: '请输入金额' }
     },

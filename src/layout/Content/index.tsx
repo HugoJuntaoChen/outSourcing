@@ -10,22 +10,29 @@ import { useGlobalContext } from '../context'
 
 const getRoutes = (data: RouteItemProps[]): any => {
   // eslint-disable-next-line array-callback-return
-  return data.map((route, index) => {
+  return data?.map((route, index) => {
     const { Element, children } = route
     if (children?.length) {
       return getRoutes(children)
     } else if (Element) {
-      return <Route {...route} element={<Element />} key={index} />
+      return <Route {...route} element={<Element />} key={`${index}-${route.path}`} />
     }
   })
 }
 
 const Content = () => {
-  const { token, getRoleAll } = useGlobalContext()
+  const { token, getRoleAll, getEquipmentTypeAll, verifyLoading } = useGlobalContext()
 
   useEffect(() => {
-    token && getRoleAll()
-  }, [])
+    if (token) {
+      getRoleAll()
+      getEquipmentTypeAll()
+    }
+  }, [token])
+
+  if (verifyLoading) {
+    return <Skeleton />
+  }
 
   if (!token) {
     return <Login />

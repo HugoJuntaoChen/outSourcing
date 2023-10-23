@@ -3,6 +3,7 @@
   height: 100%;
   background: #fff;
   padding: 8px;
+  overflow: auto;
 
   .root-nav {
     border: 0;
@@ -16,8 +17,14 @@
     .ant-menu-submenu {
 
       &:hover {
-        path {
-          fill: currentColor;
+        .ant-menu-submenu-title {
+          color: #ff6624;
+        }
+
+        svg {
+          position: relative;
+          filter: drop-shadow(#ff6624 100px 0);
+          left: -100px;
         }
       }
     }
@@ -31,12 +38,30 @@
       background-color: var(--ant-primary-color);
       color: #FFF;
 
-      path {
-        fill: currentColor;
+
+
+      svg {
+        position: relative;
+        filter: drop-shadow(#fff 100px 0);
+        left: -100px;
       }
 
       &::after {
         display: none;
+      }
+    }
+
+
+    .ant-menu-submenu-selected {
+      .ant-menu-submenu-title {
+        color: #ff6624;
+      }
+
+
+      svg {
+        position: relative;
+        filter: drop-shadow(#ff6624 100px 0);
+        left: -100px;
       }
     }
 

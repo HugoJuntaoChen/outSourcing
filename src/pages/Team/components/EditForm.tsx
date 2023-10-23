@@ -59,6 +59,20 @@ const multipleForms: IFormProps['multipleForms'] = [
   ],
   [
     {
+      type: EComponentType.Input,
+      label: '联系人',
+      key: 'contactor',
+      props: { placeholder: '请输入联系人' }
+    },
+    {
+      type: EComponentType.Input,
+      label: '联系方式',
+      key: 'phone_number',
+      props: { placeholder: '请输入联系方式' }
+    }
+  ],
+  [
+    {
       type: EComponentType.BankSelect,
       label: '开户银行',
       key: 'bank_name',
@@ -96,6 +110,22 @@ const multipleForms: IFormProps['multipleForms'] = [
       props: {
         maxCount: 1,
         placeholder: '请上传营业执照',
+        accept: '.jpg, .jpeg, .png, .pdf',
+        hint: 'Only pdf, png, jpg can be uploaded, and the size doe:100MB'
+      }
+    }
+  ],
+  [
+    {
+      type: EComponentType.Upload,
+      label: '公司头像',
+      key: 'avatar_link',
+      rowConfig: { span: 24 },
+      labelCol: { span: 3 },
+      rules: [],
+      props: {
+        maxCount: 1,
+        placeholder: '请上传公司头像',
         accept: '.jpg, .jpeg, .png, .pdf',
         hint: 'Only pdf, png, jpg can be uploaded, and the size doe:100MB'
       }

@@ -5,13 +5,13 @@ import IFormTableOperation from '@/components/IFormTableOperation'
 import PersonelEditForm from './components/EditForm'
 import IMessage from '@/components/IMessage'
 import { useGetWorkList } from '@/hooks'
-import { Button, message, type FormInstance } from 'antd'
+import { Button, message, type FormInstance, Empty, Image } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { personnelApi } from '@/api'
 
-import type { Worker } from '@/types'
+import type { Avatar, Worker } from '@/types'
 import { useGlobalContext } from '@/layout/context'
-import { LevelEnums } from '@/enums/config'
+import { FieldMap, LevelEnums } from '@/enums/config'
 
 interface IProps {
   inside?: boolean
@@ -38,19 +38,21 @@ const Personnel: React.FC<IProps> = ({ inside = false }) => {
   }
 
   const editFn = (record?: Worker) => {
+    const { avatar_link: avatarLink } = record ?? {}
     setData({
       ...record,
-      company_id: record?.company
+      company_id: record?.company,
+      avatar_link: avatarLink ? [{ url: avatarLink, uid: 1 }] : []
     })
     setFormVisible(true)
   }
 
   const deleteFn = async (record: Worker) => personnelApi.deleteWorker({ id: record?.ID })
 
-  const handleSubmit = async (values: Worker) => {
+  const handleSubmit = async (values: Worker & { avatar_link: Avatar[] }) => {
     setUpdateLoading(true)
     try {
-      await personnelApi.updateWorker({ ...values, inside, id: data?.ID })
+      await personnelApi.updateWorker({ ...values, inside, id: data?.ID, avatar_link: values?.avatar_link?.[0]?.url })
       setFormVisible(false)
       message.success('操作成功')
       onReload()
@@ -108,13 +110,30 @@ const Personnel: React.FC<IProps> = ({ inside = false }) => {
           { label: '姓名', value: data?.name },
           { label: '公司', value: companyNameMap[data?.company] },
           { label: '所属团队', value: data?.department },
-          { label: '角色', value: data?.role },
+
+          { label: '角色', value: roleConfig?.map?.[data?.role] ?? data?.role },
           { label: '身份证', value: data?.id_card },
-          { label: '级别', value: LevelEnums[data?.level] },
           { label: '手机号', value: data?.phone_number },
-          { label: '银行卡', value: `${data?.bank_branch}  ${data?.bank_account}`, span: 16 },
+
+          { label: '毕业院校', value: data?.university },
+          { label: '学历', value: data?.degree },
+          { label: '工作年限', value: `${data?.working_years ?? 0}年` },
+
+          { label: '级别', value: LevelEnums[data?.level] },
+          { label: '视频领域', value: data?.field?.map((key: any) => FieldMap[key])?.join('、'), span: 16 },
+
+          { label: '银行卡', value: `${data?.bank_branch}  ${data?.bank_account}`, span: 24 },
           { label: '紧急联系人', value: data?.emergency_contact_name },
-          { label: '联系人电话', value: data?.emergency_contact_phone, span: 16 }
+          { label: '联系人电话', value: data?.emergency_contact_phone, span: 16 },
+
+          { label: '简介', value: data?.introduction, span: 23 },
+          {
+            label: '用户头像',
+            span: 24,
+            value: (
+              data?.avatar_link ? <Image src={data?.avatar_link} width={100}/> : <Empty description='暂未上传' imageStyle={{ width: 80 }} />
+            )
+          }
         ]}
         onCancel={() => { setMessageVisible(false) }}
       />

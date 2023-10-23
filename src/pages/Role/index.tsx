@@ -52,7 +52,7 @@ const Role: React.FC = () => {
     title: '操作',
     width: 180,
     dataIndex: 'operation',
-    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload, nameKey: 'type' })
+    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload })
   }]), [])
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const Role: React.FC = () => {
           { label: '角色身份', value: IdentityMap[data?.identity] ?? '-' },
           { label: '帐户名', value: data?.username },
           { label: '角色密码', value: data?.password },
-          { label: '部门负责人', value: data?.department_owner },
+          { label: '所属部门', value: data?.department_owner },
           { label: '联系号码', value: data?.phone_number }
         ]}
         onCancel={() => { setMessageVisible(false) }}

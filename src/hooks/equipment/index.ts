@@ -1,7 +1,7 @@
 import { equipmentApi } from '@/api'
 import { useState } from 'react'
 import { pick } from 'lodash'
-import type { Equipment, GetEquipmentListRequest, GetEquipmentListResponse, PageProps } from '@/types'
+import type { Equipment, GetEquipmentListRequest, GetEquipmentListResponse, PageProps, RoleConfig } from '@/types'
 
 export const useGetEquipmentList = () => {
   const [pagination, setPagination] = useState<PageProps>({
@@ -30,4 +30,32 @@ export const useGetEquipmentList = () => {
   }
 
   return { pagination, list, loading, getEquipmentList }
+}
+
+export const useGetEquipmentTypeAll = () => {
+  const [equipmentTypeConfig, setEquipmentTypeConfig] = useState<RoleConfig>({
+    options: [],
+    map: {}
+  })
+  const [loading, setLoading] = useState(false)
+  const getEquipmentTypeAll = async (data?: any) => {
+    setLoading(true)
+    try {
+      const result = await equipmentApi.getEquipmentTypeAll()
+      const newMap: RoleConfig = {
+        options: [],
+        map: {}
+      }
+      const info = result?.data ?? {}
+      Object.keys(info)?.forEach(key => {
+        newMap.options.push({ label: key, value: info?.[key] })
+        newMap.map[info?.[key]] = key
+      })
+      setEquipmentTypeConfig(newMap)
+    } catch (error) {
+    } finally {
+      setLoading(false)
+    }
+  }
+  return { equipmentTypeConfig, loading, getEquipmentTypeAll }
 }

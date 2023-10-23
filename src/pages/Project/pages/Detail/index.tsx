@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BaseInfo, Facility, FlowStep } from './components'
 import ProjectDetailContext, { useProjectDetailContext } from './context'
 import { Spin } from 'antd'
-import { useParams } from 'react-router'
 
 const ProjectDetailDom = () => {
-  const { id } = useParams()
-  const { loading, getProjectDetail } = useProjectDetailContext()
-
-  useEffect(() => {
-    getProjectDetail({ id: Number(id) })
-  }, [])
+  const { loading } = useProjectDetailContext()
 
   return (
     <div>

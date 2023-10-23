@@ -9,4 +9,5 @@ export interface BarProps {
   id: string
   title: string
   colors?: string[]
+  unit?: string
 }

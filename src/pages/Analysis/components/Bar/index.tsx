@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 
 import * as echarts from 'echarts'
 import type { BarProps } from './type'
+import './index.less'
 
-const Bar: React.FC<BarProps> = ({ options, id, title, width = '100%', height = '100%', colors = [] }) => {
+const Bar: React.FC<BarProps> = ({ options, id, title, width = '100%', height = '100%', colors = [], unit }) => {
   useEffect(() => {
     const chartDom = document.getElementById(id)
     const myChart = echarts.init(chartDom)
@@ -15,7 +16,8 @@ const Bar: React.FC<BarProps> = ({ options, id, title, width = '100%', height = 
         confine: true,
         enterable: true,
         transitionDuration: 1,
-        backgroundColor: 'rgba(255, 255,255, 0.6)',
+        className: 'echarts-tootip-wrapper',
+        backgroundColor: 'transparent',
         padding: 0,
         formatter: (params: Array<Record<string, any>>) => {
           return `
@@ -25,12 +27,12 @@ const Bar: React.FC<BarProps> = ({ options, id, title, width = '100%', height = 
               </div>
               ${params?.map(
             (i) => `
-                  <div style = "display: flex;align-items: center; border-radius: 4px;background: rgba(255, 255, 255, 0.90); box-shadow: 6px 0px 20px 0px rgba(34, 87, 188, 0.10);width: 164px; height: 32px; margin-bottom: 4px;padding: 0px 8px 0px 9px;" >
+                  <div style = "display: flex;align-items: center; border-radius: 4px;background: rgba(255, 255, 255, 0.90); box-shadow: 6px 0px 20px 0px rgba(34, 87, 188, 0.10);min-width: 164px; min-height: 32px; margin-bottom: 4px;padding: 0px 8px 0px 9px;" >
                     <div style="margin-right: 16px;">
                       ${i.marker}
                       <span>${i.seriesName}<span>
                     </div>
-                    <div style="flex: 1; text-align: right;">${i.value}</div>
+                    <div style="flex: 1; text-align: right; word-break: break-all; white-space: break-spaces;">${i.value}${unit ?? ''}</div>
                   </div>
                 `
           )?.join('')}

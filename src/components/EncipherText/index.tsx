@@ -2,6 +2,7 @@ import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import { Space } from 'antd'
 import React, { useState } from 'react'
 import type { EncipherTextProp } from './type'
+import './index.less'
 
 const EncipherText: React.FC<EncipherTextProp> = ({ text, least = 6, view }) => {
   const [visible, setVisible] = useState(false)
@@ -11,9 +12,11 @@ const EncipherText: React.FC<EncipherTextProp> = ({ text, least = 6, view }) => 
   return (
     <Space>
       {visible ? text : filterText}
-      {(view ?? false) && (visible
-        ? <EyeOutlined onClick={() => { setVisible(false) }} style={{ color: ' var(--ant-primary-color)' }} />
-        : <EyeInvisibleOutlined onClick={() => { setVisible(true) } } />)}
+      <div className='view-icon'>
+        {(view ?? false) && (visible
+          ? <EyeOutlined onClick={() => { setVisible(false) }} style={{ color: ' var(--ant-primary-color)' }} />
+          : <EyeInvisibleOutlined onClick={() => { setVisible(true) } } style={{ color: 'rgba(19, 21, 35, 0.48)' }} />)}
+      </div>
     </Space>
   )
 }

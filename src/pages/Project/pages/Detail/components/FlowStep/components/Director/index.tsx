@@ -1,9 +1,11 @@
-import { FileView } from '@/components'
-import { Descriptions, Empty, Space } from 'antd'
+import { Descriptions } from 'antd'
 
 import React, { useMemo } from 'react'
 import { useProjectDetailContext } from '../../../../context'
 import moment from 'moment'
+import { ResultFileEnum } from '@/enums/config'
+import { ProjectUpload } from '../../..'
+import { uploadConfig } from '@/config'
 const Director: React.FC = () => {
   const { data } = useProjectDetailContext()
 
@@ -18,32 +20,29 @@ const Director: React.FC = () => {
         <Descriptions.Item label="实际成本">{info?.real_cost >= 0 ? `${info?.real_cost / 100}元` : '未知'}</Descriptions.Item>
         <Descriptions.Item label="完成日期">{info?.complete_date >= 0 ? moment.unix(info?.complete_date ?? 0).format('YYYY-MM-DD HH:MM') : '未知'}</Descriptions.Item>
         <Descriptions.Item label="实际人力">{info?.real_effors >= 0 ? `${info?.real_effors / 100}/人力天` : '未知'}</Descriptions.Item>
-        <Descriptions.Item label="文案终稿">
-          <Space direction='vertical' style={{ width: '100%' }}>
-            {info?.pure_file?.length
-              ? (
-                  info?.text_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
-              : <Empty description='暂未上传' style={{ width: 80 }} />
-            }
-          </Space>
+        <Descriptions.Item label="脚本终稿" span={1}>
+          <ProjectUpload
+            value={info?.script_file?.map((item: any) => ({
+              uid: item?.link,
+              name: item?.file_name,
+              url: item?.link,
+              thumbUrl: item?.link
+            }))}
+            scene={ResultFileEnum.ScriptFile}
+            {...uploadConfig.default}
+          />
         </Descriptions.Item>
-        <Descriptions.Item label="脚本终稿">
-          <Space direction='vertical' style={{ width: '100%' }}>
-            {info?.pure_file?.length
-              ? (
-                  info?.script_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
-              : <Empty description='暂未上传' style={{ width: 80 }} />
-            }
-          </Space>
-        </Descriptions.Item>
-        <Descriptions.Item label="素材终稿">
-          <Space direction='vertical' style={{ width: '100%' }}>
-            {info?.material_file?.length
-              ? (
-                  info?.material_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
-              : <Empty description='暂未上传' style={{ width: 80 }} />
-            }
-          </Space>
+        <Descriptions.Item label="素材终稿" span={1}>
+          <ProjectUpload
+            value={info?.material_file?.map((item: any) => ({
+              uid: item?.link,
+              name: item?.file_name,
+              url: item?.link,
+              thumbUrl: item?.link
+            }))}
+            scene={ResultFileEnum.MaterialFile}
+            {...uploadConfig.all}
+          />
         </Descriptions.Item>
       </Descriptions>
     </div>

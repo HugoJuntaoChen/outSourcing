@@ -17,6 +17,11 @@ export interface Worker {
   department: string
   inside: string
   field: string[]
+  university: string
+  degree: string
+  working_years: number
+  introduction: string
+  avatar_link: string
 }
 export interface GetWorkListRequest extends PageProps {
   company_id?: number

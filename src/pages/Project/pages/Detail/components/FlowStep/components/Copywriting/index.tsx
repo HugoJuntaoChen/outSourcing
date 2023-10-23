@@ -1,9 +1,11 @@
-import { FileView } from '@/components'
-import { Descriptions, Empty, Space } from 'antd'
+import { Descriptions } from 'antd'
 
 import React, { useMemo } from 'react'
 import { useProjectDetailContext } from '../../../../context'
 import moment from 'moment'
+import { ResultFileEnum } from '@/enums/config'
+import { ProjectUpload } from '../../..'
+import { uploadConfig } from '@/config'
 
 const Copywriting: React.FC = () => {
   const { data } = useProjectDetailContext()
@@ -19,14 +21,17 @@ const Copywriting: React.FC = () => {
         <Descriptions.Item label="实际成本">{info?.real_cost >= 0 ? `${info?.real_cost / 100}元` : '未知'}</Descriptions.Item>
         <Descriptions.Item label="完成日期">{info?.complete_date >= 0 ? moment.unix(info?.complete_date ?? 0).format('YYYY-MM-DD HH:MM') : '未知'}</Descriptions.Item>
         <Descriptions.Item label="实际人力">{info?.real_effors >= 0 ? `${info?.real_effors / 100}/人力天` : '未知'}</Descriptions.Item>
-        <Descriptions.Item label="节点产物" span={3}>
-          <Space direction='vertical' style={{ width: '100%' }}>
-            {info?.result_file?.length
-              ? (
-                  info?.script_file?.map((item: any, i: any) => <FileView key={i} name={item?.file_name} link={item?.link} />))
-              : <Empty description='暂未上传' style={{ width: 80 }} />
-            }
-          </Space>
+        <Descriptions.Item label="文案终稿" span={2}>
+          <ProjectUpload
+            value={info?.result_file?.map((item: any) => ({
+              uid: item?.link,
+              name: item?.file_name,
+              url: item?.link,
+              thumbUrl: item?.link
+            }))}
+            scene={ResultFileEnum.ResultFile}
+            {...uploadConfig.default}
+          />
         </Descriptions.Item>
       </Descriptions>
     </div>

@@ -3,22 +3,28 @@ import { SearchOutlined } from '@ant-design/icons'
 import { Form, Input, Select, Button, type FormInstance, Row, Col, DatePicker, InputNumber, Cascader } from 'antd'
 import type { IFormItemProps, IFormProps } from '../type'
 import { EComponentType } from '@/enums/componentType'
-import { CompanySelect, IDragger, IUpload, NumberRadius, RoleSelect } from '..'
+import { CompanySelect, EquipmentSelect, IDragger, IUpload, NumberRadius, RoleSelect } from '..'
 import './index.less'
 import { pcaa } from 'area-data'
-import { BankOptions, DelayRiskOptions, FieldOptions, IdentityOptions, VehicleOptions } from '@/config'
+import { BankOptions, DelayRiskOptions, DepartmentOption, FieldOptions, IdentityOptions, VehicleOptions } from '@/config'
+import { IconDown } from '@/static/Icons'
 const { RangePicker } = DatePicker
 const { Item } = Form
+const { TextArea } = Input
+
 const IFormItem = (config: IFormItemProps, form?: FormInstance<any>) => {
   const { type, props, items } = config ?? {}
-  const defaultProps = { allowClear: true, showArrow: true, classNam: 'multiple-form-item' }
-  const selectProps = { ...defaultProps, showSearch: true }
+  const defaultProps = { allowClear: true, showArrow: true, className: 'multiple-form-item' }
+  const selectProps = { ...defaultProps, showSearch: true, suffixIcon: IconDown }
 
   switch (type) {
     case EComponentType.Input:
-      return <Input {...defaultProps} {...props} />
+      // eslint-disable-next-line react/prop-types
+      return props?.type === 'textarea' ? <TextArea {...defaultProps} {...props} /> : <Input {...defaultProps} {...props} />
+    case EComponentType.Password:
+      return <Input.Password {...defaultProps} {...props} />
     case EComponentType.Select:
-      return <Select {...selectProps} {...props} />
+      return <Select {...selectProps} {...props} suffixIcon={IconDown} />
     case EComponentType.DatePicker:
       return <DatePicker allowClear showTime className='multiple-form-item' {...props} />
     case EComponentType.InputNumber:
@@ -28,7 +34,7 @@ const IFormItem = (config: IFormItemProps, form?: FormInstance<any>) => {
     case EComponentType.RangePicker:
       return <RangePicker allowClear showTime className='multiple-form-item' {...props} />
     case EComponentType.CompanySelect:
-      return <CompanySelect {...props} />
+      return <CompanySelect {...props} suffixIcon={IconDown} />
     case EComponentType.City:
       // eslint-disable-next-line no-case-declarations
       const city = pcaa?.[86] ?? {}
@@ -44,7 +50,7 @@ const IFormItem = (config: IFormItemProps, form?: FormInstance<any>) => {
     case EComponentType.Upload:
       return <IUpload {...props}/>
     case EComponentType.RoleSelect:
-      return <RoleSelect {...props}/>
+      return <RoleSelect {...props} suffixIcon={IconDown}/>
     case EComponentType.FieldSelect:
       return <Select {...selectProps} options={FieldOptions} {...props} />
     case EComponentType.BankSelect:
@@ -55,6 +61,10 @@ const IFormItem = (config: IFormItemProps, form?: FormInstance<any>) => {
       return <Select {...selectProps} options={IdentityOptions} {...props} />
     case EComponentType.VehicleSelect:
       return <Select {...selectProps} options={VehicleOptions} {...props} />
+    case EComponentType.DepartmentSelect:
+      return <Select {...selectProps} options={DepartmentOption} {...props} />
+    case EComponentType.EquipmentSelect:
+      return <EquipmentSelect {...props} suffixIcon={IconDown}/>
     default:
       return <div></div>
   }
@@ -109,7 +119,7 @@ const IForm = forwardRef<FormInstance<any>, IFormProps>(
 
     const SearchButton = search
       ? (
-        <Form.Item>
+        <Form.Item key='button'>
           <Button type="primary" htmlType="submit" icon={<SearchOutlined />} loading={loading} >
             搜索
           </Button>

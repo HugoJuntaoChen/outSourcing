@@ -28,21 +28,33 @@ const Vehicle: React.FC<IProps> = ({ inside = false }) => {
   }
 
   const viewFn = (record: Car) => {
-    setData(record)
+    setData({
+      ...record,
+      price_per_day: Number(record?.price_per_day) / 100
+    })
     setMessageVisible(true)
   }
 
   const editFn = (record?: Car) => {
-    setData(record)
+    setData({
+      ...record,
+      price_per_day: Number(record?.price_per_day) / 100
+    })
     setFormVisible(true)
   }
 
   const deleteFn = async (record: Car) => vehicleApi.deleteCar({ id: record?.ID })
 
   const handleSubmit = async (values: Car) => {
+    const { price_per_day: pricePerDay, ...params } = values ?? {}
     setUpdateLoading(true)
     try {
-      await vehicleApi.updateCar({ ...values, inside, id: data?.ID })
+      await vehicleApi.updateCar({
+        ...params,
+        price_per_day: pricePerDay ? pricePerDay * 100 : undefined,
+        inside,
+        id: data?.ID
+      })
       setFormVisible(false)
       message.success('操作成功')
       onReload()
@@ -57,7 +69,7 @@ const Vehicle: React.FC<IProps> = ({ inside = false }) => {
     title: '操作',
     width: 180,
     dataIndex: 'operation',
-    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload, nameKey: 'type' })
+    render: (_: any, record, index: number) => IFormTableOperation({ record, viewFn, deleteFn, editFn, onReload, text: record?.number })
   }]), [])
 
   useEffect(() => {
@@ -107,7 +119,7 @@ const Vehicle: React.FC<IProps> = ({ inside = false }) => {
           { label: '车辆名称', value: data?.name },
           { label: '车辆编号', value: data?.number },
           { label: '车辆个数', value: data?.quantity },
-          { label: '单价/天', value: data?.price_per_day },
+          { label: '单价(元)/天', value: data?.price_per_day },
           { label: '座位', value: data?.seat_count }
         ]}
         onCancel={() => { setMessageVisible(false) }}

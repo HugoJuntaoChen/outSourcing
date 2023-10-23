@@ -27,7 +27,7 @@ const BaseInfo = () => {
         <Descriptions.Item label="成片格式">{data?.format}</Descriptions.Item>
         <Descriptions.Item label="项目负责人" className='special'>{data?.contact}</Descriptions.Item>
         <Descriptions.Item label="项目简介">
-          {data?.sample_link?.join('、')}
+          {data?.description ?? ''}
         </Descriptions.Item>
       </Descriptions>
     </div>

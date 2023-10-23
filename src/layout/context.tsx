@@ -1,4 +1,4 @@
-import { useGetCompanyList, useGetRoleAll, useLogin } from '@/hooks'
+import { useGetCompanyList, useGetEquipmentTypeAll, useGetRoleAll, useLogin } from '@/hooks'
 import type { Company, GetCompanyListRequest, RoleConfig, UseLoginResponse } from '@/types'
 import React, { createContext, useContext, useMemo } from 'react'
 
@@ -10,14 +10,18 @@ interface IProps extends UseLoginResponse {
   roleConfig: RoleConfig
   roleConfigLoading: boolean
   getRoleAll: (data?: any) => Promise<void>
+  equipmentTypeConfig: RoleConfig
+  equipmentTypeConfigLoading: boolean
+  getEquipmentTypeAll: () => Promise<void>
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const GlobalContextCom = createContext({} as IProps)
 
 const GlobalContext: React.FC = ({ children }) => {
-  const { login, logOut, loading, token } = useLogin()
+  const { login, logOut, loading, verifyLoading, token, userInfo } = useLogin()
   const { roleConfig, loading: roleConfigLoading, getRoleAll } = useGetRoleAll()
+  const { equipmentTypeConfig, loading: equipmentTypeConfigLoading, getEquipmentTypeAll } = useGetEquipmentTypeAll()
 
   const { list: companylist, loading: companyloading, getCompanyList } = useGetCompanyList()
 
@@ -35,14 +39,20 @@ const GlobalContext: React.FC = ({ children }) => {
         login,
         logOut,
         loading,
+        verifyLoading,
         token,
+        userInfo,
         companylist,
         companyloading,
         getCompanyList,
         companyNameMap,
         roleConfig,
         roleConfigLoading,
-        getRoleAll
+        getRoleAll,
+
+        equipmentTypeConfig,
+        equipmentTypeConfigLoading,
+        getEquipmentTypeAll
       }}
     >
       {children}

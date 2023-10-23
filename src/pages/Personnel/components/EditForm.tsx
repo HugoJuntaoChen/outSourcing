@@ -4,7 +4,7 @@ import { type FormInstance } from 'antd'
 import { useMemo, useRef } from 'react'
 import IModal from '@/components/IModal'
 import { type IFormProps } from '@/components/type'
-import { BankOptions, LevelOptions } from '@/config'
+import { LevelOptions } from '@/config'
 
 interface IProps {
   data?: any
@@ -51,18 +51,46 @@ const multipleForms: IFormProps['multipleForms'] = [
       props: { options: LevelOptions, placeholder: '请选择级别' }
     },
     {
-      type: EComponentType.Input,
-      label: '身份证',
-      key: 'id_card',
-      props: { placeholder: '请输入身份证' }
+      type: EComponentType.FieldSelect,
+      label: '视频领域',
+      key: 'field',
+      props: { placeholder: '请选择视频领域', mode: 'multiple' }
     }
   ],
   [
     {
       type: EComponentType.Input,
+      label: '身份证',
+      key: 'id_card',
+      props: { placeholder: '请输入身份证' }
+    },
+    {
+      type: EComponentType.Input,
       label: '手机号',
       key: 'phone_number',
       props: { placeholder: '请输入手机号' }
+    }
+  ],
+  [
+    {
+      type: EComponentType.Input,
+      label: '毕业院校',
+      key: 'university',
+      props: { placeholder: '请输入毕业院校' }
+    },
+    {
+      type: EComponentType.Input,
+      label: '学历',
+      key: 'degree',
+      props: { placeholder: '请输入学历' }
+    }
+  ],
+  [
+    {
+      type: EComponentType.InputNumber,
+      label: '工作年限',
+      key: 'working_years',
+      props: { placeholder: '请输入工作年限' }
     }
   ],
   [
@@ -76,7 +104,7 @@ const multipleForms: IFormProps['multipleForms'] = [
       type: EComponentType.Input,
       label: '银行帐号',
       key: 'bank_account',
-      props: { options: BankOptions, placeholder: '请输入银行帐号' }
+      props: { placeholder: '请输入银行帐号' }
     }
   ],
   [
@@ -92,10 +120,37 @@ const multipleForms: IFormProps['multipleForms'] = [
       key: 'emergency_contact_phone',
       props: { placeholder: '请输入联系人电话' }
     }
+  ],
+  [
+    {
+      type: EComponentType.Input,
+      label: '个人简介',
+      key: 'introduction',
+      rules: [],
+      props: { placeholder: '请输入个人简介', type: 'textarea', autoSize: { minRows: 6, maxRows: 6 } },
+      rowConfig: { span: 24 },
+      labelCol: { span: 3 }
+    }
+  ],
+  [
+    {
+      type: EComponentType.Upload,
+      label: '用户头像',
+      key: 'avatar_link',
+      rowConfig: { span: 24 },
+      labelCol: { span: 3 },
+      rules: [],
+      props: {
+        maxCount: 1,
+        placeholder: '请上传用户头像',
+        accept: '.jpg, .jpeg, .png, .pdf',
+        hint: 'Only pdf, png, jpg can be uploaded, and the size doe:100MB'
+      }
+    }
   ]
-].map(arr => arr.map(config => ({
+].map(arr => arr.map((config: any) => ({
   ...config,
-  rules: [{ required: true, message: config?.props?.placeholder }],
+  rules: config.rules ?? [{ required: true, message: config?.props?.placeholder }],
   validateTrigger: 'onBlur'
 })))
 

@@ -1,4 +1,4 @@
-import { type BudgetRiskEnums, type CollaborationEnums, type DelayRiskEnums, type FieldEnums } from '@/enums/config'
+import { type ResultFileEnum, type BudgetRiskEnums, type CollaborationEnums, type DelayRiskEnums, type FieldEnums } from '@/enums/config'
 import { type PageProps } from '.'
 
 export interface GetProjectListRequest extends PageProps {
@@ -41,4 +41,11 @@ export interface GetProjectListResponse {
     projects: Project[]
     total: number
   }
+}
+
+export interface ProjectFile {
+  project_id?: number
+  file_path?: string
+  file_name?: string
+  scene?: ResultFileEnum
 }

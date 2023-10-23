@@ -38,7 +38,7 @@ const Personnel: React.FC = () => {
             data?.people_plan?.role_details?.map((item: any, i: any) => (
               <Col span={8} key={i} style={{ marginBottom: 20 }}>
                 <Row>
-                  <Col span={6} style={{ marginTop: 4, textAlign: 'right' }}>
+                  <Col span={6} style={{ marginTop: 6, textAlign: 'right' }}>
                     {item?.role_name}
                     <Colon />
                   </Col>

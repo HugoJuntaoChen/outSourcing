@@ -10,19 +10,28 @@ import { Button, Popover, Space } from 'antd'
 import { useGlobalContext } from '@/layout/context'
 
 const Header = () => {
-  const { logOut } = useGlobalContext()
-
+  const { logOut, userInfo } = useGlobalContext()
   return (
     <div className="root-header">
       <div className="root-header-left">
         {IconBase}
         {IconTitle}
-        <div>后台管理系统</div>
+        <div className='title'>后台管理系统</div>
       </div>
       <div className="root-header-right">
         <Space size={24}>
           <Space>
-            <div className="root-header-righ-icon">{IconQuestion}</div>
+            <Popover content={(
+              <Button
+                size='small'
+                type='link'
+                onClick={() => { window.open('https://docs.qq.com/doc/DSXB1bXNKR0hMTXlU') } }
+              >
+                用户手册
+              </Button>
+            )}>
+              <div className="root-header-righ-icon">{IconQuestion}</div>
+            </Popover>
             <div className="root-header-righ-icon">{IconBellOutlined}</div>
           </Space>
           <Popover
@@ -31,16 +40,15 @@ const Header = () => {
             content={(
               <Button
                 size='small'
-                type='text'
-                style={{ color: '#334155' }}
+                type='link'
+                danger
                 onClick={logOut}
               >
                 退出登录
               </Button>
             )}
-            trigger="click"
           >
-            <div className='user-icon' />
+            <div className='user-icon' style={userInfo.avatar_link ? { backgroundImage: `url(${userInfo.avatar_link})` } : {}} />
           </Popover>
         </Space>
       </div>

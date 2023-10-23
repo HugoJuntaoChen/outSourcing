@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Space, Steps, Typography } from 'antd'
 import { stepItems } from './config'
 import './index.less'
@@ -11,10 +11,10 @@ const { Text } = Typography
 
 const FlowStep = () => {
   const [current, setCurrent] = useState(0)
-  const { data } = useProjectDetailContext()
+  const { data, getProjectDetail, id } = useProjectDetailContext()
 
   const logList = useMemo(() => {
-    const list = data?.[stepItems?.[current]?.stepKey]?.operation_log
+    const list = data?.[stepItems?.[current]?.stepkey]?.operation_log
     return Array.isArray(list)
       ? list?.map((item: any) => (
         {
@@ -26,11 +26,19 @@ const FlowStep = () => {
       : []
   }, [data, current])
 
+  useEffect(() => {
+    getProjectDetail({ id })
+  }, [current])
+
   return (
     <div className='project-detail-flow-step-wrapper'>
-      <Steps className='steps' current={current} items={stepItems} onChange={setCurrent} />
-
-      {current === 0 && <Personnel />}
+      <Steps
+        className='steps'
+        current={current}
+        items={stepItems}
+        onChange={setCurrent}
+      />
+      {current === 0 && <Personnel /> }
       {current === 1 && <Copywriting />}
       {current === 2 && <Director />}
       {current === 3 && <Flaking />}
@@ -52,7 +60,7 @@ const FlowStep = () => {
 
       <Space style={{ width: '100%', justifyContent: 'center' }}>
         {Boolean(current) && <Button onClick={() => { setCurrent(current - 1) }}>上一步</Button>}
-        <Button type="primary" onClick={() => { setCurrent(current + 1) }}>下一步</Button>
+        {current < 4 && <Button type="primary" onClick={() => { setCurrent(current + 1) }}>下一步</Button> }
       </Space>
 
     </div>
