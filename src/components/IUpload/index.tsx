@@ -73,6 +73,7 @@ const IUpload: React.FC<UploadProps & any> = (props) => {
         }}
         onRemove={(file) => {
           const newList = [...currentFiles.current?.filter((item: any) => item.uid !== file.uid)]
+          currentFiles.current = newList
           setFileList(newList)
           onChange(JSON.parse(JSON.stringify(newList)))
         }}

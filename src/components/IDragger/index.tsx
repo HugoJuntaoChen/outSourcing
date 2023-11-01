@@ -76,8 +76,8 @@ const IDragger: React.FC<Props & any> = (props) => {
       }}
       onRemove={async (file) => {
         const newList = [...currentFiles.current?.filter((item: any) => item.uid !== file.uid)]
-        setFileList(newList)
         currentFiles.current = newList
+        setFileList(newList)
         onChange([...newList])
         return false
       }}
