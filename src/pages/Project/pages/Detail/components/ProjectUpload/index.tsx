@@ -51,6 +51,7 @@ const ProjectUpload: React.FC<IProps> = ({ scene, value, type, accept, hint, max
           scene
         })
         const newList = [...currentFiles.current?.filter((item: any) => item.uid !== file.uid)]
+        currentFiles.current = newList
         setFileList(newList)
         message.success('删除成功')
       } catch (error) {
